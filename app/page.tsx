@@ -209,7 +209,7 @@ export default function Home() {
       <main>
         {/* HERO SECTION */}
         <section id="hero">
-          <Image src="/hanifabdusy.png" alt="Hanif Abdusy" className="hero-img" id="hero-img" width={800} height={800} priority />
+          <Image src="/rmbg-hanif.png" alt="Hanif Abdusy" className="hero-img" id="hero-img" width={800} height={800} priority />
           <div className="hero-title-container container">
             <span className="hero-name outline-text parallax-text" data-speed="-2">HANIF</span>
             <span className="hero-name outline-text parallax-text" data-speed="2" style={{ paddingLeft: "200px" }}>ABDUSY</span>
