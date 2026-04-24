@@ -8,7 +8,7 @@ const syne = Syne({ subsets: ["latin"], variable: "--font-syne" })
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 
 export const metadata: Metadata = {
-  title: "Hanif Abdusy — Frontend Developer",
+  title: "Hanif Abdusy Syakur - Frontend Developer",
   description: "Personal portfolio of Hanif Abdusy. Frontend Developer passionate about crafting modern, responsive, and visually stunning web experiences.",
   generator: "v0.app",
   icons: {
