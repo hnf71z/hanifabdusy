@@ -8,6 +8,7 @@ import "react-vertical-timeline-component/style.min.css"
 const Typewriter = dynamic(() => import("typewriter-effect"), { ssr: false })
 const VerticalTimeline = dynamic(() => import("react-vertical-timeline-component").then(m => m.VerticalTimeline), { ssr: false })
 const VerticalTimelineElement = dynamic(() => import("react-vertical-timeline-component").then(m => m.VerticalTimelineElement), { ssr: false })
+const GitHubCalendar = dynamic(() => import("react-github-calendar").then(m => m.GitHubCalendar), { ssr: false })
 import {
   FaHtml5,
   FaCss3Alt,
@@ -24,6 +25,7 @@ import {
   FaEnvelope,
   FaBars,
   FaTimes,
+  FaCertificate,
 } from "react-icons/fa"
 import AOS from "aos"
 import "aos/dist/aos.css"
@@ -77,11 +79,60 @@ const experiences = [
     icon: <FaGraduationCap />,
     iconBg: "#1d4ed8",
   },
+  {
+    title: "UKM Polytechnic Computer Club",
+    subtitle: "Workshop Division",
+    description: "Responsible for supervising and managing departments within the Workshop Division (Software, Network, Multimedia), coordinating training programs organized by UKM PCC, and developing the hard skills of members and management of UKM PCC.",
+    date: "2024 - 2025",
+    icon: <FaGraduationCap />,
+    iconBg: "#1d4ed8",
+  },
+  {
+    title: "Semarang State Polytechnic",
+    subtitle: "Computer Engineering Technology",
+    description: "Completed comprehensive web development courses covering front-end fundamentals, JavaScript programming, and building progressive web applications.",
+    date: "2023 - Present",
+    icon: <FaGraduationCap />,
+    iconBg: "#1d4ed8",
+  },
+]
+
+const certificates = [
+  {
+    title: "Belajar Dasar Pemrograman Web",
+    issuer: "Dicoding Indonesia",
+    date: "2025",
+    credentialId: "dicoding-web-dasar",
+    image: "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/certificate_logo.png",
+  },
+  {
+    title: "Belajar Dasar Pemrograman JavaScript",
+    issuer: "Dicoding Indonesia",
+    date: "2025",
+    credentialId: "dicoding-js-dasar",
+    image: "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/certificate_logo.png",
+  },
+  {
+    title: "Belajar Membuat Front-End Web untuk Pemula",
+    issuer: "Dicoding Indonesia",
+    date: "2025",
+    credentialId: "dicoding-frontend-pemula",
+    image: "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/certificate_logo.png",
+  },
+  {
+    title: "Belajar Fundamental Front-End Web Development",
+    issuer: "Dicoding Indonesia",
+    date: "2025",
+    credentialId: "dicoding-frontend-fundamental",
+    image: "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/certificate_logo.png",
+  },
 ]
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [navVisible, setNavVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
 
   // Theme toggle effect
   useEffect(() => {
@@ -105,6 +156,22 @@ export default function Home() {
     window.addEventListener("resize", handleResize)
     return () => window.removeEventListener("resize", handleResize)
   }, [])
+
+  // Navigation scroll hide/show
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setNavVisible(false)
+      } else {
+        setNavVisible(true)
+      }
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [lastScrollY])
 
   useEffect(() => {
     // Mouse Blob Follower
@@ -182,16 +249,13 @@ export default function Home() {
     <>
       <div className="blob" id="cursor-blob"></div>
 
-      <nav>
-        <div className="logo">
-          <Image src="/nfz-logo.png" alt="NFZ Logo" className="nav-logo-img" width={40} height={40} />
-        </div>
+      <nav className={!navVisible ? "nav-hidden" : ""}>
         <ul className={`nav-links${menuOpen ? " nav-open" : ""}`}>
           <li><a href="#hero" onClick={() => setMenuOpen(false)}>Home</a></li>
           <li><a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a></li>
           <li><a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a></li>
           <li><a href="#experience" onClick={() => setMenuOpen(false)}>Experience</a></li>
-          <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
+          <li><a href="#contact" onClick={() => setMenuOpen(false)} className="contact-btn">Contact</a></li>
         </ul>
         <div className="nav-actions">
           <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)} aria-label="Toggle theme">
@@ -271,6 +335,23 @@ export default function Home() {
           </div>
         </section>
 
+        {/* GITHUB ACTIVITY */}
+        <section id="github" className="github-section">
+          <div className="container">
+            <h3 className="github-title">@hnf71z on GitHub</h3>
+            <div className="github-calendar-wrapper" data-aos="fade-up">
+              <GitHubCalendar
+                username="hnf71z"
+                colorScheme={darkMode ? "dark" : "light"}
+                blockSize={15}
+                blockMargin={5}
+                blockRadius={3}
+                fontSize={14}
+              />
+            </div>
+          </div>
+        </section>
+
         {/* PROJECTS SECTION */}
         <section id="projects" className="container">
           <div className="sticky-type">WORK</div>
@@ -314,6 +395,36 @@ export default function Home() {
           ))}
           <div style={{ textAlign: "center", marginTop: "60px" }} data-aos="zoom-in" data-aos-delay="300">
             <a href="/projects" className="show-all-btn">Show All Projects</a>
+          </div>
+        </section>
+
+        {/* CERTIFICATES SECTION */}
+        <section id="certificates" className="certificates-section">
+          <div className="container">
+            <div className="section-heading">
+              <span style={{ fontFamily: "var(--syne)", color: "var(--accent)", fontSize: "0.9rem", letterSpacing: "3px", textTransform: "uppercase" }}>ACHIEVEMENTS</span>
+              <h2 style={{ fontSize: "3rem", fontFamily: "var(--syne)", marginTop: "12px" }}>CERTIFICATES</h2>
+            </div>
+            <div className="divider"></div>
+            <div className="certificates-grid">
+              {certificates.map((cert, index) => (
+                <div key={cert.credentialId} className="cert-card" data-aos="fade-up" data-aos-delay={index * 100}>
+                  <div className="cert-card-icon">
+                    <FaCertificate />
+                  </div>
+                  <div className="cert-card-body">
+                    <h3 className="cert-card-title">{cert.title}</h3>
+                    <p className="cert-card-issuer">{cert.issuer}</p>
+                    <span className="cert-card-date">{cert.date}</span>
+                  </div>
+                  <div className="cert-card-footer">
+                    <a href="#" className="cert-card-link">
+                      View Credential <FaExternalLinkAlt style={{ fontSize: "0.7rem" }} />
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
