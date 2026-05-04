@@ -534,33 +534,32 @@ nav.nav-hidden {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
-  color: #c9d1d9; /* GitHub dark mode text */
+  color: #c9d1d9;
+  /* GitHub dark mode text */
   margin-bottom: 12px;
   letter-spacing: normal;
 }
 
 .light-mode .github-title {
-  color: #24292e; /* GitHub light mode text */
+  color: #24292e;
+  /* GitHub light mode text */
 }
 
 .github-calendar-wrapper {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 16px;
-  padding: 24px 28px;
+  background: transparent;
+  border: none;
+  padding: 16px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow-x: auto;
 }
 
-/* Light mode card — white transparent */
+/* Light mode — keep transparent */
 .light-mode .github-calendar-wrapper {
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 /* Dark mode: light text for calendar labels */
@@ -595,147 +594,125 @@ nav.nav-hidden {
   color: #586069 !important;
 }
 
-/* ===== CERTIFICATES SECTION ===== */
-.certificates-section {
-  min-height: auto;
-  padding: 80px 0;
+/* ===== PROJECTS SECTION ===== */
+.cardswap-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+  margin: 80px 0;
+  perspective: 1000px;
 }
 
-.certificates-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-}
-
-.cert-card {
+.project-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 28px;
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
+}
+
+.project-card-content {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    border-color 0.4s ease,
-    box-shadow 0.4s ease,
-    background 0.4s ease;
-  position: relative;
+}
+
+.project-image {
+  height: 60%;
   overflow: hidden;
 }
 
-.cert-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), #6366f1, var(--accent));
-  opacity: 0;
-  transition: opacity 0.4s ease;
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.cert-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(37, 99, 235, 0.25);
-  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.12);
-  background: rgba(255, 255, 255, 0.06);
+.project-card:hover .project-image img {
+  transform: scale(1.05);
+  filter: grayscale(0%);
 }
 
-.cert-card:hover::before {
-  opacity: 1;
-}
-
-.cert-card-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(37, 99, 235, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  color: var(--accent);
-  flex-shrink: 0;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.cert-card:hover .cert-card-icon {
-  background: rgba(37, 99, 235, 0.2);
-  transform: scale(1.08);
-}
-
-.cert-card-body {
-  flex: 1;
+.project-info {
+  padding: 24px;
+  height: 40%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  justify-content: space-between;
 }
 
-.cert-card-title {
+.project-number {
   font-family: var(--syne);
-  font-size: 1.1rem;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.project-title {
+  font-family: var(--syne);
+  font-size: 1.5rem;
   font-weight: 700;
-  line-height: 1.3;
+  margin: 8px 0;
   color: var(--fg);
 }
 
-.cert-card-issuer {
-  font-size: 0.85rem;
+.project-desc {
+  font-size: 0.9rem;
   color: #8b949e;
-  font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 16px;
 }
 
-.cert-card-date {
-  font-family: var(--syne);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.cert-card-footer {
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.cert-card-link {
-  display: inline-flex;
-  align-items: center;
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--accent);
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  transition: color 0.3s ease, gap 0.3s ease;
+  margin-bottom: 16px;
 }
 
-.cert-card-link:hover {
-  color: #6366f1;
+.project-tag {
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.project-links {
+  display: flex;
   gap: 12px;
 }
 
-/* Light mode certificates */
-.light-mode .cert-card {
-  background: rgba(255, 255, 255, 0.6);
-  border-color: rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+.project-link-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--fg);
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-.light-mode .cert-card:hover {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(37, 99, 235, 0.2);
-  box-shadow: 0 12px 40px rgba(37, 99, 235, 0.1);
-}
-
-.light-mode .cert-card-issuer {
-  color: #586069;
-}
-
-.light-mode .cert-card-footer {
-  border-top-color: rgba(0, 0, 0, 0.06);
+.project-link-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 #hero {
@@ -1555,13 +1532,28 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
     gap: 30px;
   }
 
-  .certificates-grid {
-    grid-template-columns: 1fr;
+  .cert-stack-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 22px 20px;
     gap: 16px;
   }
 
-  .cert-card {
-    padding: 22px;
+  .cert-stack-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .cert-stack-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .certificates-section .scroll-stack-inner {
+    padding: 10vh 20px 40rem;
   }
 
   .footer-bottom {
@@ -2170,6 +2162,14 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
   color: #1a1a2e;
 }
 
+/* CardSwap */
+.light-mode .card,
+.light-mode .project-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  color: #111111 !important;
+}
+
 /* Projects */
 .light-mode .sticky-type {
   color: #000000 !important;
@@ -2224,11 +2224,11 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
 }
 
 .light-mode .timeline-desc {
-  color: #6b7280;
+  color: #111111;
 }
 
 .light-mode .timeline-date {
-  color: #9ca3af !important;
+  color: #333333 !important;
 }
 
 /* Footer — stays dark for contrast */
@@ -2277,7 +2277,7 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
 }
 
 .light-mode p {
-  color: #6b7280;
+  color: #111111;
 }
 
 /* Force all h2 in light mode to be dark (overrides inline styles) */
@@ -2302,15 +2302,26 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
 
 /* Project text */
 .light-mode .project-info h3 {
-  color: #1a1a2e !important;
+  color: #111111 !important;
 }
 
-.light-mode .project-info p {
-  color: #6b7280;
+.light-mode .project-info p,
+.light-mode .project-desc {
+  color: #111111 !important;
 }
 
-.light-mode .project-info span {
-  color: var(--accent);
+.light-mode .project-info span,
+.light-mode .project-number {
+  color: var(--accent) !important;
+}
+
+.light-mode .project-title {
+  color: #111111 !important;
+}
+
+.light-mode .project-link-btn {
+  color: #111111 !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Project tags — ensure readable */
@@ -2464,8 +2475,15 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
 }
 
 @keyframes tooltipFadeIn {
-  from { opacity: 0; transform: translateY(-50%) translateX(-10px); }
-  to { opacity: 1; transform: translateY(-50%) translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
 }
 
 /* Light mode */
@@ -2499,14 +2517,14 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
     left: 10px;
     padding: 12px 0;
   }
-  
+
   .sidebar-item,
   .sidebar-theme-toggle {
     width: 38px;
     height: 38px;
     font-size: 16px;
   }
-  
+
   .sidebar-item[data-tooltip]:hover::after,
   .sidebar-theme-toggle[data-tooltip]:hover::after {
     left: 50px;

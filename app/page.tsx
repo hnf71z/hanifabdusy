@@ -25,8 +25,8 @@ import {
   FaEnvelope,
   FaBars,
   FaTimes,
-  FaCertificate,
 } from "react-icons/fa"
+import CardSwap, { Card } from "@/components/CardSwap"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { SiNextdotjs, SiExpress } from "react-icons/si"
@@ -94,37 +94,6 @@ const experiences = [
     date: "2023 - Present",
     icon: <FaGraduationCap />,
     iconBg: "#1d4ed8",
-  },
-]
-
-const certificates = [
-  {
-    title: "Belajar Dasar Pemrograman Web",
-    issuer: "Dicoding Indonesia",
-    date: "2025",
-    credentialId: "dicoding-web-dasar",
-    image: "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/certificate_logo.png",
-  },
-  {
-    title: "Belajar Dasar Pemrograman JavaScript",
-    issuer: "Dicoding Indonesia",
-    date: "2025",
-    credentialId: "dicoding-js-dasar",
-    image: "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/certificate_logo.png",
-  },
-  {
-    title: "Belajar Membuat Front-End Web untuk Pemula",
-    issuer: "Dicoding Indonesia",
-    date: "2025",
-    credentialId: "dicoding-frontend-pemula",
-    image: "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/certificate_logo.png",
-  },
-  {
-    title: "Belajar Fundamental Front-End Web Development",
-    issuer: "Dicoding Indonesia",
-    date: "2025",
-    credentialId: "dicoding-frontend-fundamental",
-    image: "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/certificate_logo.png",
   },
 ]
 
@@ -360,71 +329,49 @@ export default function Home() {
             <h2 style={{ fontSize: "3rem", fontFamily: "var(--syne)", marginTop: "12px" }}>FEATURED PROJECTS</h2>
           </div>
           <div className="divider"></div>
-          {projects.map((project, index) => (
-            <div key={project.title} className="project-row" data-aos="fade-up" data-aos-duration="1000" style={index % 2 !== 0 ? { flexDirection: "row-reverse" } : undefined}>
-              <div className="project-info">
-                <span style={{ fontFamily: "var(--syne)", color: "var(--accent)" }}>
-                  {String(index + 1).padStart(3, "0")} / PROJECT
-                </span>
-                <h3 className="huge-type" style={{ fontSize: "clamp(1.8rem, 8vw, 4rem)", margin: "20px 0", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", lineHeight: "1.2" }}>
-                  {project.title.split(" ")[0].toUpperCase()}
-                </h3>
-                <p>{project.desc}</p>
-                <div className="project-tags" data-aos="fade-up" data-aos-delay="100">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="project-tag">{tag}</span>
-                  ))}
-                </div>
-                <div className="divider"></div>
-                <div style={{ display: "flex", gap: "16px" }} data-aos="fade-up" data-aos-delay="200">
-                  <a href="#" className="project-link-btn outline">
-                    <FaExternalLinkAlt style={{ marginRight: 6 }} /> Live Demo
-                  </a>
-                  <a href="#" className="project-link-btn outline">
-                    <FaGithub style={{ marginRight: 6 }} /> Source Code
-                  </a>
-                </div>
-              </div>
-              <div className="project-media">
-                <img src={project.image} alt={project.title} className="project-image" loading="lazy" />
-                <div className="floating-label huge-type outline-text" style={index % 2 !== 0 ? { fontSize: "clamp(4rem, 15vw, 8rem)", right: "auto", left: "-50px" } : { fontSize: "clamp(4rem, 15vw, 8rem)" }}>
-                  {project.title.split(" ").pop()?.toUpperCase()}
-                </div>
-              </div>
-            </div>
-          ))}
+          <div className="cardswap-wrapper">
+            <CardSwap
+              width={800}
+              height={500}
+              cardDistance={60}
+              verticalDistance={70}
+              delay={2000}
+              pauseOnHover={true}
+              easing="elastic"
+            >
+              {projects.map((project, index) => (
+                <Card key={project.title} customClass="project-card">
+                  <div className="project-card-content">
+                    <div className="project-image">
+                      <img src={project.image} alt={project.title} />
+                    </div>
+                    <div className="project-info">
+                      <span className="project-number">
+                        {String(index + 1).padStart(3, "0")} / PROJECT
+                      </span>
+                      <h3 className="project-title">{project.title}</h3>
+                      <p className="project-desc">{project.desc}</p>
+                      <div className="project-tags">
+                        {project.tags.map((tag) => (
+                          <span key={tag} className="project-tag">{tag}</span>
+                        ))}
+                      </div>
+                      <div className="project-links">
+                        <a href="#" className="project-link-btn">
+                          <FaExternalLinkAlt /> Live Demo
+                        </a>
+                        <a href="#" className="project-link-btn">
+                          <FaGithub /> Source
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </CardSwap>
+          </div>
           <div style={{ textAlign: "center", marginTop: "60px" }} data-aos="zoom-in" data-aos-delay="300">
             <a href="/projects" className="show-all-btn">Show All Projects</a>
-          </div>
-        </section>
-
-        {/* CERTIFICATES SECTION */}
-        <section id="certificates" className="certificates-section">
-          <div className="container">
-            <div className="section-heading">
-              <span style={{ fontFamily: "var(--syne)", color: "var(--accent)", fontSize: "0.9rem", letterSpacing: "3px", textTransform: "uppercase" }}>ACHIEVEMENTS</span>
-              <h2 style={{ fontSize: "3rem", fontFamily: "var(--syne)", marginTop: "12px" }}>CERTIFICATES</h2>
-            </div>
-            <div className="divider"></div>
-            <div className="certificates-grid">
-              {certificates.map((cert, index) => (
-                <div key={cert.credentialId} className="cert-card" data-aos="fade-up" data-aos-delay={index * 100}>
-                  <div className="cert-card-icon">
-                    <FaCertificate />
-                  </div>
-                  <div className="cert-card-body">
-                    <h3 className="cert-card-title">{cert.title}</h3>
-                    <p className="cert-card-issuer">{cert.issuer}</p>
-                    <span className="cert-card-date">{cert.date}</span>
-                  </div>
-                  <div className="cert-card-footer">
-                    <a href="#" className="cert-card-link">
-                      View Credential <FaExternalLinkAlt style={{ fontSize: "0.7rem" }} />
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
