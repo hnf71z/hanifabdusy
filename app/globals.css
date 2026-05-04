@@ -2220,11 +2220,13 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
 }
 
 .light-mode .timeline-subtitle {
-  color: var(--accent);
+  color: #000000 !important;
+  font-weight: bold !important;
 }
 
 .light-mode .timeline-desc {
-  color: #111111;
+  color: #000000 !important;
+  font-weight: normal !important;
 }
 
 .light-mode .timeline-date {
@@ -2314,7 +2316,7 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
   color: var(--accent) !important;
 }
 
-.light-mode .project-number {
+.light-mode .project-info .project-number {
   color: #000000 !important;
 }
 
