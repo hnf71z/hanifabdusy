@@ -36,7 +36,22 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.getItem('theme') === 'light') {
+                  document.documentElement.classList.add('light-mode');
+                } else {
+                  document.documentElement.classList.remove('light-mode');
+                }
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
       <body className={`${syne.variable} ${inter.variable}`}>
         {children}
         <Analytics />

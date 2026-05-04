@@ -2310,9 +2310,12 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
   color: #111111 !important;
 }
 
-.light-mode .project-info span,
-.light-mode .project-number {
+.light-mode .project-info span {
   color: var(--accent) !important;
+}
+
+.light-mode .project-number {
+  color: #000000 !important;
 }
 
 .light-mode .project-title {

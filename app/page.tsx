@@ -98,7 +98,12 @@ const experiences = [
 ]
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(true)
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") !== "light"
+    }
+    return true
+  })
   const [menuOpen, setMenuOpen] = useState(false)
   const [navVisible, setNavVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
@@ -108,8 +113,10 @@ export default function Home() {
     document.documentElement.classList.add("theme-transition")
     if (darkMode) {
       document.documentElement.classList.remove("light-mode")
+      localStorage.setItem("theme", "dark")
     } else {
       document.documentElement.classList.add("light-mode")
+      localStorage.setItem("theme", "light")
     }
     const timeout = setTimeout(() => {
       document.documentElement.classList.remove("theme-transition")

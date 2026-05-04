@@ -45,14 +45,21 @@ const projectsData: Record<string, any> = {
 }
 
 export default function ProjectDetail({ params }: { params: { slug: string } }) {
-  const [darkMode, setDarkMode] = useState(true)
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") !== "light"
+    }
+    return true
+  })
 
   useEffect(() => {
     document.documentElement.classList.add("theme-transition")
     if (darkMode) {
       document.documentElement.classList.remove("light-mode")
+      localStorage.setItem("theme", "dark")
     } else {
       document.documentElement.classList.add("light-mode")
+      localStorage.setItem("theme", "light")
     }
     const timeout = setTimeout(() => {
       document.documentElement.classList.remove("theme-transition")
