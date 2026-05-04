@@ -42,10 +42,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                if (localStorage.getItem('theme') === 'light') {
+                var theme = localStorage.getItem('theme');
+                if (theme === 'light') {
                   document.documentElement.classList.add('light-mode');
                 } else {
                   document.documentElement.classList.remove('light-mode');
+                  if (!theme) localStorage.setItem('theme', 'dark');
                 }
               } catch (e) {}
             `,

@@ -26,6 +26,7 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa"
+import { Highlighter } from "@/components/ui/highlighter"
 import CardSwap, { Card } from "@/components/CardSwap"
 import AOS from "aos"
 import "aos/dist/aos.css"
@@ -97,6 +98,15 @@ const experiences = [
   },
 ]
 
+const certificates = [
+  { title: "Front-End Web Development", credentialId: "DICODING/FE-2025/001", link: "#" },
+  { title: "JavaScript Fundamentals", credentialId: "DICODING/JS-2024/042", link: "#" },
+  { title: "React Web Apps", credentialId: "DICODING/REACT-2025/017", link: "#" },
+  { title: "Responsive Web Design", credentialId: "FCC/RWD-2024/A1B2C3", link: "#" },
+  { title: "Back-End Development", credentialId: "DICODING/BE-2025/089", link: "#" },
+  { title: "Version Control with Git", credentialId: "COURSERA/GIT-2024/X9Y8Z7", link: "#" },
+]
+
 export default function Home() {
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
@@ -104,12 +114,14 @@ export default function Home() {
     }
     return true
   })
+  const [mounted, setMounted] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [navVisible, setNavVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
 
   // Theme toggle effect
   useEffect(() => {
+    setMounted(true)
     document.documentElement.classList.add("theme-transition")
     if (darkMode) {
       document.documentElement.classList.remove("light-mode")
@@ -237,7 +249,7 @@ export default function Home() {
           <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)} aria-label="Toggle theme">
             <span className="toggle-bg"></span>
             <span className="toggle-knob">
-              {darkMode ? <FaSun /> : <FaMoon />}
+              {mounted ? (darkMode ? <FaSun /> : <FaMoon />) : <FaSun />}
             </span>
           </button>
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
@@ -263,17 +275,9 @@ export default function Home() {
               <h2 style={{ fontSize: "3rem", fontFamily: "var(--syne)", marginBottom: "40px" }}>
                 FRONTEND DEVELOPER WHO CRAFTS DIGITAL EXPERIENCES.
               </h2>
-              <div className="reveal-up" style={{ fontSize: "1.5rem", fontWeight: 300, color: "#888", marginBottom: "40px", animationDelay: "0.2s", minHeight: "80px" }}>
-                <Typewriter
-                  options={{
-                    delay: 40,
-                  }}
-                  onInit={(typewriter) => {
-                    typewriter
-                      .typeString("Passionate about building modern, responsive, and visually stunning web applications. Turning ideas into elegant digital solutions with clean code and creative design.")
-                      .start()
-                  }}
-                />
+              <div className="reveal-up" style={{ fontSize: "1.5rem", fontWeight: 300, color: "var(--fg)", opacity: 0.9, marginBottom: "40px", animationDelay: "0.2s", minHeight: "80px", lineHeight: "1.6" }}>
+                Passionate about building <Highlighter isView={true} color="rgba(37, 99, 235, 0.2)">modern, responsive</Highlighter>, and visually stunning web applications. 
+                Turning ideas into elegant digital solutions with <Highlighter isView={true} color="rgba(16, 185, 129, 0.2)">clean code</Highlighter> and <Highlighter isView={true} color="rgba(139, 92, 246, 0.2)">creative design</Highlighter>.
               </div>
               <div data-aos="fade-up" data-aos-delay="400">
                 <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="cv-btn">MY CV</a>
@@ -294,7 +298,7 @@ export default function Home() {
         <section id="skills">
           <div className="container">
             <div className="section-heading">
-              <span style={{ fontFamily: "var(--syne)", color: "var(--accent)", fontSize: "0.9rem", letterSpacing: "3px", textTransform: "uppercase" }}>WHAT I USE</span>
+              <span style={{ fontFamily: "var(--syne)", fontSize: "0.9rem", letterSpacing: "3px", textTransform: "uppercase" }} className="section-label">WHAT I USE</span>
               <h2 style={{ fontSize: "3rem", fontFamily: "var(--syne)", marginTop: "12px" }}>TECH STACK</h2>
             </div>
             <div className="divider"></div>
@@ -332,7 +336,7 @@ export default function Home() {
         <section id="projects" className="container">
           <div className="sticky-type">WORK</div>
           <div className="section-heading">
-            <span style={{ fontFamily: "var(--syne)", color: "var(--accent)", fontSize: "0.9rem", letterSpacing: "3px", textTransform: "uppercase" }}>MY WORK</span>
+            <span style={{ fontFamily: "var(--syne)", fontSize: "0.9rem", letterSpacing: "3px", textTransform: "uppercase" }} className="section-label">MY WORK</span>
             <h2 style={{ fontSize: "3rem", fontFamily: "var(--syne)", marginTop: "12px" }}>FEATURED PROJECTS</h2>
           </div>
           <div className="divider"></div>
@@ -386,7 +390,7 @@ export default function Home() {
         <section id="experience" className="experience-section">
           <div className="container">
             <div className="section-heading">
-              <span style={{ fontFamily: "var(--syne)", color: "var(--accent)", fontSize: "0.9rem", letterSpacing: "3px", textTransform: "uppercase" }}>MY JOURNEY</span>
+              <span style={{ fontFamily: "var(--syne)", fontSize: "0.9rem", letterSpacing: "3px", textTransform: "uppercase" }} className="section-label">MY JOURNEY</span>
               <h2 style={{ fontSize: "3rem", fontFamily: "var(--syne)", marginTop: "12px" }}>EXPERIENCE & EDUCATION</h2>
             </div>
             <VerticalTimeline lineColor="rgba(255,255,255,0.08)">
@@ -417,6 +421,30 @@ export default function Home() {
                 </VerticalTimelineElement>
               ))}
             </VerticalTimeline>
+          </div>
+        </section>
+
+        {/* CERTIFICATES SECTION */}
+        <section id="certificates" className="container" style={{ paddingTop: "60px", paddingBottom: "100px" }}>
+          <div className="section-heading">
+            <span style={{ fontFamily: "var(--syne)", fontSize: "0.9rem", letterSpacing: "3px", textTransform: "uppercase" }} className="section-label">ACHIEVEMENTS</span>
+            <h2 style={{ fontSize: "3rem", fontFamily: "var(--syne)", marginTop: "12px" }}>CERTIFICATES</h2>
+          </div>
+          <div className="divider" style={{ marginBottom: "60px" }}></div>
+
+          <div className="certificates-grid">
+            {certificates.map((cert, index) => (
+              <div key={index} className="cert-card" data-aos="fade-up" data-aos-delay={index * 80}>
+                <h3 className="cert-title">{cert.title}</h3>
+                <div className="cert-credential">
+                  <span className="cert-credential-label">CREDENTIAL ID</span>
+                  <span className="cert-credential-id">{cert.credentialId}</span>
+                </div>
+                <a href={cert.link} target="_blank" rel="noopener noreferrer" className="cert-link">
+                  View Certificate <FaExternalLinkAlt />
+                </a>
+              </div>
+            ))}
           </div>
         </section>
 
