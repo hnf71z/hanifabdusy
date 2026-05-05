@@ -1,9 +1,15 @@
 "use client"
 
-import { useEffect, useState, use } from "react"
+import { useEffect, useState, use, useCallback } from "react"
 import { FaArrowLeft, FaExternalLinkAlt, FaGithub } from "react-icons/fa"
 import Image from "next/image"
-import { getProjectBySlug, projects } from "@/lib/data"
+import { getProjectBySlug } from "@/lib/data"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel"
 
 export default function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
@@ -14,6 +20,10 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
     }
     return true
   })
+
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>()
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [slideCount, setSlideCount] = useState(0)
 
   useEffect(() => {
     document.documentElement.classList.add("theme-transition")
@@ -29,6 +39,22 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
     }, 600)
     return () => clearTimeout(timeout)
   }, [darkMode])
+
+  // Carousel slide tracking
+  const onSelect = useCallback(() => {
+    if (!carouselApi) return
+    setCurrentSlide(carouselApi.selectedScrollSnap())
+  }, [carouselApi])
+
+  useEffect(() => {
+    if (!carouselApi) return
+    setSlideCount(carouselApi.scrollSnapList().length)
+    setCurrentSlide(carouselApi.selectedScrollSnap())
+    carouselApi.on("select", onSelect)
+    return () => {
+      carouselApi.off("select", onSelect)
+    }
+  }, [carouselApi, onSelect])
 
   const project = getProjectBySlug(slug)
 
@@ -81,9 +107,83 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
             ))}
           </div>
 
-          <div style={{ width: "100%", height: "auto", borderRadius: "24px", overflow: "hidden", marginBottom: "60px", boxShadow: "0 20px 40px rgba(0,0,0,0.3)", position: "relative" }}>
-            <Image src={project.image} alt={project.title} style={{ width: "100%", height: "auto", display: "block" }} width={1200} height={800} priority />
+          {/* Project Image Carousel */}
+          <div className="project-carousel-wrapper">
+            {/* Left arrow — outside the card */}
+            {project.images.length > 1 && (
+              <button
+                className="project-carousel-prev"
+                onClick={() => carouselApi?.scrollPrev()}
+                aria-label="Previous slide"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+            )}
+
+            {/* Carousel */}
+            <div className="project-carousel-inner">
+              <Carousel
+                setApi={setCarouselApi}
+                opts={{ loop: true }}
+                className="project-carousel"
+              >
+                <CarouselContent>
+                  {project.images.map((img, index) => (
+                    <CarouselItem key={index}>
+                      <div className="project-carousel-slide">
+                        <Image
+                          src={img}
+                          alt={`${project.title} - Screenshot ${index + 1}`}
+                          width={1200}
+                          height={800}
+                          priority={index === 0}
+                          className="project-carousel-img"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
+              
+              {/* Slide counter diletakkan di dalam container gambar agar bisa absolute di kiri bawah */}
+              {project.images.length > 1 && (
+                <div className="project-carousel-counter">
+                  {currentSlide + 1} / {slideCount}
+                </div>
+              )}
+            </div>
+
+            {/* Right arrow — outside the card */}
+            {project.images.length > 1 && (
+              <button
+                className="project-carousel-next"
+                onClick={() => carouselApi?.scrollNext()}
+                aria-label="Next slide"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            )}
           </div>
+
+          {/* Bottom controls: dots */}
+          {project.images.length > 1 && (
+            <div className="project-carousel-controls">
+              <div className="project-carousel-dots">
+                {project.images.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`project-carousel-dot${currentSlide === index ? " active" : ""}`}
+                    onClick={() => carouselApi?.scrollTo(index)}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
 
           <div style={{ display: "flex", flexWrap: "wrap", gap: "60px" }}>
             <div style={{ flex: "1 1 400px" }}>
@@ -109,4 +209,5 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
     </>
   )
 }
+
 

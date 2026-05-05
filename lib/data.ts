@@ -1,3 +1,4 @@
+
 // =============================================================================
 // Centralized data definitions for the portfolio.
 // Import from here instead of duplicating data across pages.
@@ -13,6 +14,7 @@ export interface Project {
   desc: string
   tags: string[]
   image: string
+  images: string[]
   content: string
   link: string
   github: string
@@ -43,8 +45,11 @@ export const projects: Project[] = [
     title: "AI Learning Insight",
     desc: "Full-stack e-commerce web app with product catalog, cart system, and payment integration. Built to be responsive and highly performant.",
     tags: ["React.js", "Express", "Supabase", "AI/ML"],
-    image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800",
+    image: "/ai-learning-insight-landingpage.webp",
+    images: [
+      "/ai-learning-insight-landingpage.webp",
+      "/ai-learning-insight.webp",
+    ],
     content:
       "This project aims to simplify online shopping with a clean and intuitive user interface. It features a complete shopping cart system, user authentication, and fully working Stripe payment integration.",
     link: "https://ai-learning-insight-dicoding.vercel.app/",
@@ -55,8 +60,13 @@ export const projects: Project[] = [
     title: "SI-AMI Polines",
     desc: "Collaborative task management tool with drag-and-drop boards and real-time updates.",
     tags: ["React", "Express", "Socket.io"],
-    image:
-      "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=800",
+    image: "/login-page-siami.webp",
+    images: [
+      "/login-page-siami.webp",
+      "/dashboard-admin-01.webp",
+      "/periode-audit-02.webp",
+      "/daftar-tilik-03.webp",
+    ],
     content:
       "Developed a real-time collaborative workspace where users can track their tasks using a drag-and-drop Kanban board interface.",
     link: "#",
@@ -67,8 +77,10 @@ export const projects: Project[] = [
     title: "IOT Forecasting Weather With Flutter",
     desc: "IoT-based weather forecasting application built with Flutter, providing real-time weather data visualization and prediction.",
     tags: ["Flutter", "IoT", "Firebase"],
-    image:
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    images: [
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    ],
     content:
       "An IoT-driven weather forecasting app that collects sensor data and presents it through a beautiful Flutter interface with charts and real-time updates.",
     link: "#",
@@ -79,8 +91,10 @@ export const projects: Project[] = [
     title: "POLIVENT",
     desc: "Event management platform for campus communities with registration, scheduling, and notification features.",
     tags: ["Flutter", "Laravel", "MySQL"],
-    image:
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    images: [
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    ],
     content:
       "POLIVENT is a campus event management platform that enables students and organizations to create, manage, and participate in events with a seamless digital experience.",
     link: "#",
@@ -91,8 +105,16 @@ export const projects: Project[] = [
     title: "Delima Website",
     desc: "Modern organizational website featuring scroll-driven animations, glassmorphism, and responsive design.",
     tags: ["Next.js", "CSS3", "TypeScript"],
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    image: "/delima-umkm.webp",
+    images: [
+      "/delima-umkm.webp",
+      "/delima-02.webp",
+      "/delima-03.webp",
+      "/delima-04.webp",
+      "/delima-05.webp",
+      "/delima-06.webp",
+      "/delima-07.webp",
+    ],
     content:
       "A creatively designed organizational website using highly optimized CSS, smooth scroll-driven animations, and a premium glassmorphism aesthetic.",
     link: "#",
@@ -103,8 +125,13 @@ export const projects: Project[] = [
     title: "Personal Notes",
     desc: "A clean and minimalist note-taking web application with archive, search, and theme support.",
     tags: ["React", "CSS3", "LocalStorage"],
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    image: "/personal-notes.webp",
+    images: [
+      "/personal-notes.webp",
+      "/catatan-aktif.webp",
+      "/input-catatan.webp",
+      "/arsip-catatan.webp",
+    ],
     content:
       "Personal Notes is a lightweight note-taking app that supports creating, archiving, searching, and deleting notes — all stored locally in the browser.",
     link: "#",
