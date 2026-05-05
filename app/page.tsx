@@ -31,81 +31,23 @@ import CardSwap, { Card } from "@/components/CardSwap"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { SiNextdotjs, SiExpress } from "react-icons/si"
+import { projects, experiences, certificates, skills, type Skill } from "@/lib/data"
 
-const skills = [
-  { name: "HTML5", icon: <FaHtml5 />, color: "#E34F26" },
-  { name: "CSS3", icon: <FaCss3Alt />, color: "#1572B6" },
-  { name: "JavaScript", icon: <FaJs />, color: "#F7DF1E" },
-  { name: "React", icon: <FaReact />, color: "#61DAFB" },
-  { name: "Next.js", icon: <SiNextdotjs />, color: "currentColor" },
-  { name: "Node.js", icon: <FaNodeJs />, color: "#339933" },
-  { name: "Express", icon: <SiExpress />, color: "currentColor" },
-]
+// Map iconKey strings from data to actual React icon components
+const skillIconMap: Record<Skill["iconKey"], React.ReactNode> = {
+  html5: <FaHtml5 />,
+  css3: <FaCss3Alt />,
+  js: <FaJs />,
+  react: <FaReact />,
+  nextjs: <SiNextdotjs />,
+  nodejs: <FaNodeJs />,
+  express: <SiExpress />,
+}
 
-const projects = [
-  {
-    title: "E-Commerce Platform",
-    desc: "Full-stack e-commerce web app with product catalog, cart system, and payment integration.",
-    tags: ["Next.js", "Node.js", "MongoDB"],
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=800",
-  },
-  {
-    title: "Task Management App",
-    desc: "Collaborative task management tool with drag-and-drop boards and real-time updates.",
-    tags: ["React", "Express", "Socket.io"],
-    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=800",
-  },
-  {
-    title: "Portfolio Website",
-    desc: "Modern personal portfolio with smooth animations, responsive design, and premium aesthetics.",
-    tags: ["Next.js", "CSS3", "TypeScript"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-  },
-]
-
-const experiences = [
-  {
-    title: "Frontend Developer",
-    subtitle: "Self-Learning",
-    description: "Building modern web applications using React, Next.js, and Node.js. Focused on creating pixel-perfect, responsive UI with exceptional user experience.",
-    date: "2026 — Present",
-    icon: <FaCode />,
-    iconBg: "#2563eb",
-  },
-  {
-    title: "Dicoding Asah",
-    subtitle: "Web Development Learning Path",
-    description: "Completed comprehensive web development courses covering front-end fundamentals, JavaScript programming, and building progressive web applications.",
-    date: "2025",
-    icon: <FaGraduationCap />,
-    iconBg: "#1d4ed8",
-  },
-  {
-    title: "UKM Polytechnic Computer Club",
-    subtitle: "Workshop Division",
-    description: "Responsible for supervising and managing departments within the Workshop Division (Software, Network, Multimedia), coordinating training programs organized by UKM PCC, and developing the hard skills of members and management of UKM PCC.",
-    date: "2024 - 2025",
-    icon: <FaGraduationCap />,
-    iconBg: "#1d4ed8",
-  },
-  {
-    title: "Semarang State Polytechnic",
-    subtitle: "Computer Engineering Technology",
-    description: "Completed comprehensive web development courses covering front-end fundamentals, JavaScript programming, and building progressive web applications.",
-    date: "2023 - Present",
-    icon: <FaGraduationCap />,
-    iconBg: "#1d4ed8",
-  },
-]
-
-const certificates = [
-  { title: "Front-End Web Development", credentialId: "DICODING/FE-2025/001", link: "#" },
-  { title: "JavaScript Fundamentals", credentialId: "DICODING/JS-2024/042", link: "#" },
-  { title: "React Web Apps", credentialId: "DICODING/REACT-2025/017", link: "#" },
-  { title: "Responsive Web Design", credentialId: "FCC/RWD-2024/A1B2C3", link: "#" },
-  { title: "Back-End Development", credentialId: "DICODING/BE-2025/089", link: "#" },
-  { title: "Version Control with Git", credentialId: "COURSERA/GIT-2024/X9Y8Z7", link: "#" },
-]
+const experienceIconMap: Record<string, React.ReactNode> = {
+  code: <FaCode />,
+  graduation: <FaGraduationCap />,
+}
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -306,7 +248,7 @@ export default function Home() {
               <div className="skills-track">
                 {[...skills, ...skills].map((skill, index) => (
                   <div key={`${skill.name}-${index}`} className="skill-card">
-                    <div className="skill-icon" style={{ color: skill.color }}>{skill.icon}</div>
+                    <div className="skill-icon" style={{ color: skill.color }}>{skillIconMap[skill.iconKey]}</div>
                     <div className="skill-name">{skill.name}</div>
                   </div>
                 ))}
@@ -350,7 +292,7 @@ export default function Home() {
               pauseOnHover={true}
               easing="elastic"
             >
-              {projects.map((project, index) => (
+              {projects.slice(0, 3).map((project, index) => (
                 <Card key={project.title} customClass="project-card">
                   <div className="project-card-content">
                     <div className="project-image">
@@ -413,7 +355,7 @@ export default function Home() {
                     color: "#fff",
                     boxShadow: "0 0 0 4px rgba(37,99,235,0.3), 0 4px 20px rgba(0,0,0,0.4)",
                   }}
-                  icon={exp.icon}
+                  icon={experienceIconMap[exp.iconType]}
                 >
                   <h3 className="timeline-title">{exp.title}</h3>
                   <h4 className="timeline-subtitle">{exp.subtitle}</h4>

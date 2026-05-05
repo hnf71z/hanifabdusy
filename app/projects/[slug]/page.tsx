@@ -1,50 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, use } from "react"
 import { FaArrowLeft, FaExternalLinkAlt, FaGithub } from "react-icons/fa"
 import Image from "next/image"
+import { getProjectBySlug, projects } from "@/lib/data"
 
-// Mock data mapping (In a real app, you would fetch this from an API or CMS based on the slug)
-const projectsData: Record<string, any> = {
-  "e-commerce-platform": {
-    title: "E-Commerce Platform",
-    desc: "Full-stack e-commerce web app with product catalog, cart system, and payment integration. Built to be responsive and highly performant.",
-    tags: ["Next.js", "Node.js", "MongoDB", "Stripe"],
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=1200",
-    content: "This project aims to simplify online shopping with a clean and intuitive user interface. It features a complete shopping cart system, user authentication, and fully working Stripe payment integration.",
-    link: "#",
-    github: "#"
-  },
-  "task-management-app": {
-    title: "Task Management App",
-    desc: "Collaborative task management tool with drag-and-drop boards and real-time updates.",
-    tags: ["React", "Express", "Socket.io"],
-    image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&q=80&w=1200",
-    content: "Developed a real-time collaborative workspace where users can track their tasks using a drag-and-drop Kanban board interface.",
-    link: "#",
-    github: "#"
-  },
-  "portfolio-website": {
-    title: "Portfolio Website",
-    desc: "Modern and animated personal portfolio displaying projects and experience.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=1200",
-    content: "A creatively designed personal portfolio using highly optimized vanilla CSS and smooth animations to provide a unique user experience.",
-    link: "#",
-    github: "#"
-  },
-  "default": {
-    title: "Project Detail",
-    desc: "Detailed view for the selected project showcasing the technologies used and its core features.",
-    tags: ["Development", "Design"],
-    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200",
-    content: "This represents the detail view of an amazing project built with modern web technologies.",
-    link: "#",
-    github: "#"
-  }
-}
+export default function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params)
 
-export default function ProjectDetail({ params }: { params: { slug: string } }) {
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("theme") !== "light"
@@ -67,16 +30,27 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
     return () => clearTimeout(timeout)
   }, [darkMode])
 
-  const project = projectsData[params.slug] || projectsData["default"]
+  const project = getProjectBySlug(slug)
+
+  if (!project) {
+    return (
+      <main>
+        <section className="container" style={{ paddingTop: "120px", minHeight: "100vh", textAlign: "center" }}>
+          <h1 style={{ fontSize: "3rem", fontFamily: "var(--syne)", marginBottom: "20px" }}>Project Not Found</h1>
+          <p style={{ opacity: 0.7, marginBottom: "40px" }}>The project you&apos;re looking for doesn&apos;t exist.</p>
+          <a href="/projects" className="project-link-btn outline" style={{ display: "inline-flex" }}>
+            <FaArrowLeft style={{ marginRight: 8 }} /> Back to Projects
+          </a>
+        </section>
+      </main>
+    )
+  }
 
   return (
     <>
       <div className="blob" id="cursor-blob"></div>
 
       <nav>
-        <div className="logo">
-          <Image src="/nfz-logo.png" alt="NFZ Logo" className="nav-logo-img" width={40} height={40} />
-        </div>
         <div className="nav-actions">
           <ul className="nav-links" style={{ position: "relative", left: "auto", transform: "none" }}>
             <li>
@@ -100,7 +74,7 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
           </div>
           
           <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", margin: "30px 0 50px" }}>
-            {project.tags.map((tag: string) => (
+            {project.tags.map((tag) => (
               <span key={tag} className="project-tag" style={{ border: "1px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.05)", padding: "8px 16px", borderRadius: "100px", fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "1px" }}>
                 {tag}
               </span>
@@ -135,3 +109,4 @@ export default function ProjectDetail({ params }: { params: { slug: string } }) 
     </>
   )
 }
+
