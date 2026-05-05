@@ -130,6 +130,19 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
                 className="project-carousel"
               >
                 <CarouselContent>
+                  {project.video && (
+                    <CarouselItem>
+                      <div className="project-carousel-slide">
+                        <iframe
+                          src={`https://www.youtube.com/embed/${project.video}?rel=0`}
+                          allow="autoplay; encrypted-media"
+                          allowFullScreen
+                          className="project-carousel-img"
+                          style={{ width: "100%", height: "100%", border: "none" }}
+                        />
+                      </div>
+                    </CarouselItem>
+                  )}
                   {project.images.map((img, index) => (
                     <CarouselItem key={index}>
                       <div className="project-carousel-slide">
@@ -138,7 +151,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
                           alt={`${project.title} - Screenshot ${index + 1}`}
                           width={1200}
                           height={800}
-                          priority={index === 0}
+                          priority={index === 0 && !project.video}
                           className="project-carousel-img"
                         />
                       </div>

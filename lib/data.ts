@@ -15,6 +15,8 @@ export interface Project {
   tags: string[]
   image: string
   images: string[]
+  /** Optional YouTube video ID to embed (e.g. "dQw4w9WgXcQ") */
+  video?: string
   content: string
   link: string
   github: string
@@ -81,6 +83,7 @@ export const projects: Project[] = [
     images: [
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
     ],
+    video: "EncEIESbwjg",
     content:
       "An IoT-driven weather forecasting app that collects sensor data and presents it through a beautiful Flutter interface with charts and real-time updates.",
     link: "#",
@@ -117,7 +120,7 @@ export const projects: Project[] = [
     ],
     content:
       "A creatively designed organizational website using highly optimized CSS, smooth scroll-driven animations, and a premium glassmorphism aesthetic.",
-    link: "#",
+    link: "https://delimafnb.vercel.app/",
     github: "#",
   },
   {
