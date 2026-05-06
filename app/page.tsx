@@ -28,6 +28,7 @@ import {
 } from "react-icons/fa"
 import { Highlighter } from "@/components/ui/highlighter"
 import CardSwap, { Card } from "@/components/CardSwap"
+import { useTheme } from "next-themes"
 import AOS from "aos"
 import "aos/dist/aos.css"
 import { SiNextdotjs, SiExpress } from "react-icons/si"
@@ -50,33 +51,22 @@ const experienceIconMap: Record<string, React.ReactNode> = {
 }
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") !== "light"
-    }
-    return true
-  })
+  const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [navVisible, setNavVisible] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const [activeExp, setActiveExp] = useState<number | null>(null)
+  const currentTheme = resolvedTheme === "light" ? "light" : "dark"
 
-  // Theme toggle effect
+  const toggleTheme = () => {
+    setTheme(currentTheme === "dark" ? "light" : "dark")
+  }
+
+  // Set mounted flag on client
   useEffect(() => {
     setMounted(true)
-    document.documentElement.classList.add("theme-transition")
-    if (darkMode) {
-      document.documentElement.classList.remove("light-mode")
-      localStorage.setItem("theme", "dark")
-    } else {
-      document.documentElement.classList.add("light-mode")
-      localStorage.setItem("theme", "light")
-    }
-    const timeout = setTimeout(() => {
-      document.documentElement.classList.remove("theme-transition")
-    }, 600)
-    return () => clearTimeout(timeout)
-  }, [darkMode])
+  }, [])
 
   // Close mobile menu on resize
   useEffect(() => {
@@ -188,10 +178,10 @@ export default function Home() {
           <li><a href="#contact" onClick={() => setMenuOpen(false)} className="contact-btn">Contact</a></li>
         </ul>
         <div className="nav-actions">
-          <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)} aria-label="Toggle theme">
+          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
             <span className="toggle-bg"></span>
             <span className="toggle-knob">
-              {mounted ? (darkMode ? <FaSun /> : <FaMoon />) : <FaSun />}
+              {mounted ? (currentTheme === "dark" ? <FaSun /> : <FaMoon />) : <FaSun />}
             </span>
           </button>
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
@@ -264,7 +254,7 @@ export default function Home() {
             <div className="github-calendar-wrapper" data-aos="fade-up">
               <GitHubCalendar
                 username="hnf71z"
-                colorScheme={darkMode ? "dark" : "light"}
+                colorScheme={currentTheme === "dark" ? "dark" : "light"}
                 blockSize={15}
                 blockMargin={5}
                 blockRadius={3}
@@ -304,19 +294,6 @@ export default function Home() {
                       </span>
                       <h3 className="project-title">{project.title}</h3>
                       <p className="project-desc">{project.desc}</p>
-                      <div className="project-tags">
-                        {project.tags.map((tag) => (
-                          <span key={tag} className="project-tag">{tag}</span>
-                        ))}
-                      </div>
-                      <div className="project-links">
-                        <a href="#" className="project-link-btn">
-                          <FaExternalLinkAlt /> Live Demo
-                        </a>
-                        <a href="#" className="project-link-btn">
-                          <FaGithub /> Source
-                        </a>
-                      </div>
                     </div>
                   </div>
                 </Card>
@@ -336,32 +313,48 @@ export default function Home() {
               <h2 style={{ fontSize: "3rem", fontFamily: "var(--syne)", marginTop: "12px" }}>EXPERIENCE & EDUCATION</h2>
             </div>
             <VerticalTimeline lineColor="rgba(255,255,255,0.08)">
-              {experiences.map((exp, index) => (
-                <VerticalTimelineElement
-                  key={index}
-                  className="vertical-timeline-element"
-                  contentStyle={{
+                {experiences.map((exp, index) => {
+                  const isActive = activeExp === index
+                  const baseStyle = {
                     background: "rgba(255,255,255,0.04)",
                     border: "1px solid rgba(255,255,255,0.08)",
                     borderRadius: "12px",
                     boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
                     padding: "28px 32px",
-                  }}
-                  contentArrowStyle={{ borderRight: "7px solid rgba(255,255,255,0.08)" }}
-                  date={exp.date}
-                  dateClassName="timeline-date"
-                  iconStyle={{
-                    background: exp.iconBg,
-                    color: "#fff",
-                    boxShadow: "0 0 0 4px rgba(37,99,235,0.3), 0 4px 20px rgba(0,0,0,0.4)",
-                  }}
-                  icon={experienceIconMap[exp.iconType]}
-                >
-                  <h3 className="timeline-title">{exp.title}</h3>
-                  <h4 className="timeline-subtitle">{exp.subtitle}</h4>
-                  <p className="timeline-desc">{exp.description}</p>
-                </VerticalTimelineElement>
-              ))}
+                    cursor: "pointer",
+                  } as React.CSSProperties
+
+                  const activeStyle: React.CSSProperties = isActive
+                    ? {
+                        ...baseStyle,
+                        border: "1px solid rgba(59,130,246,0.6)",
+                        boxShadow: "0 8px 32px rgba(59,130,246,0.12)",
+                      }
+                    : baseStyle
+
+                  return (
+                    <VerticalTimelineElement
+                      key={index}
+                      className={`vertical-timeline-element ${isActive ? "active" : ""}`}
+                      contentStyle={activeStyle}
+                      contentArrowStyle={{ borderRight: isActive ? "7px solid rgba(59,130,246,0.6)" : "7px solid rgba(255,255,255,0.08)" }}
+                      date={exp.date}
+                      dateClassName="timeline-date"
+                      iconStyle={{
+                        background: exp.iconBg,
+                        color: "#fff",
+                        boxShadow: "0 0 0 4px rgba(37,99,235,0.3), 0 4px 20px rgba(0,0,0,0.4)",
+                        cursor: "pointer",
+                      }}
+                      icon={experienceIconMap[exp.iconType]}
+                      onClick={() => setActiveExp(index)}
+                    >
+                      <h3 className="timeline-title">{exp.title}</h3>
+                      <h4 className="timeline-subtitle">{exp.subtitle}</h4>
+                      <p className="timeline-desc">{exp.description}</p>
+                    </VerticalTimelineElement>
+                  )
+                })}
             </VerticalTimeline>
           </div>
         </section>

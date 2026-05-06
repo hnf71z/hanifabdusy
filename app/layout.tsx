@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Syne, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
+import { ClientThemeWrapper } from "@/components/ClientThemeWrapper"
 import "./globals.css"
 
 const syne = Syne({ subsets: ["latin"], variable: "--font-syne" })
@@ -37,26 +38,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                var theme = localStorage.getItem('theme');
-                if (theme === 'light') {
-                  document.documentElement.classList.add('light-mode');
-                } else {
-                  document.documentElement.classList.remove('light-mode');
-                  if (!theme) localStorage.setItem('theme', 'dark');
-                }
-              } catch (e) {}
-            `,
-          }}
-        />
-      </head>
       <body className={`${syne.variable} ${inter.variable}`}>
-        {children}
-        <Analytics />
+        <ClientThemeWrapper>
+          {children}
+          <Analytics />
+        </ClientThemeWrapper>
       </body>
     </html>
   )

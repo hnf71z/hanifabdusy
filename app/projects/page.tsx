@@ -1,33 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { FaArrowLeft } from "react-icons/fa"
 import Image from "next/image"
 import { projects } from "@/lib/data"
 
 export default function Projects() {
-  const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") !== "light"
-    }
-    return true
-  })
-
-  useEffect(() => {
-    document.documentElement.classList.add("theme-transition")
-    if (darkMode) {
-      document.documentElement.classList.remove("light-mode")
-      localStorage.setItem("theme", "dark")
-    } else {
-      document.documentElement.classList.add("light-mode")
-      localStorage.setItem("theme", "light")
-    }
-    const timeout = setTimeout(() => {
-      document.documentElement.classList.remove("theme-transition")
-    }, 600)
-    return () => clearTimeout(timeout)
-  }, [darkMode])
-
   return (
     <>
       <div className="blob" id="cursor-blob"></div>

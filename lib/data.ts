@@ -209,34 +209,34 @@ export const experiences: Experience[] = [
 
 export const certificates: Certificate[] = [
   {
-    title: "Front-End Web Development",
-    credentialId: "DICODING/FE-2025/001",
-    link: "#",
+    title: "Becoming a React Web Developer Expert",
+    credentialId: "QLZ9929VMZ5D",
+    link: "https://www.dicoding.com/certificates/QLZ9929VMZ5D",
   },
   {
-    title: "JavaScript Fundamentals",
-    credentialId: "DICODING/JS-2024/042",
-    link: "#",
+    title: "Basic Web Programming",
+    credentialId: "RVZKG6K6OXD5",
+    link: "https://www.dicoding.com/certificates/RVZKG6K6OXD5",
   },
   {
-    title: "React Web Apps",
-    credentialId: "DICODING/REACT-2025/017",
-    link: "#",
+    title: "Fundamentals of Web Applications with React",
+    credentialId: "EYX4KVO26PDL",
+    link: "https://www.dicoding.com/certificates/EYX4KVO26PDL",
   },
   {
-    title: "Responsive Web Design",
-    credentialId: "FCC/RWD-2024/A1B2C3",
-    link: "#",
+    title: "Building Front-End Web for Beginners",
+    credentialId: "1RXYQ603QZVM",
+    link: "https://www.dicoding.com/certificates/1RXYQ603QZVM",
   },
   {
-    title: "Back-End Development",
-    credentialId: "DICODING/BE-2025/089",
-    link: "#",
+    title: "Basic JavaScript Programming",
+    credentialId: "N9ZO2DJRRPG5",
+    link: "https://www.dicoding.com/certificates/N9ZO2DJRRPG5",
   },
   {
-    title: "Version Control with Git",
-    credentialId: "COURSERA/GIT-2024/X9Y8Z7",
-    link: "#",
+    title: "Building Web Applications with React",
+    credentialId: "MEPJ2J5OLP3V",
+    link: "https://www.dicoding.com/certificates/MEPJ2J5OLP3V",
   },
 ]
 

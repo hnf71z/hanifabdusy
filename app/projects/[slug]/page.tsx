@@ -13,32 +13,9 @@ import {
 
 export default function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params)
-
-  const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") !== "light"
-    }
-    return true
-  })
-
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const [currentSlide, setCurrentSlide] = useState(0)
   const [slideCount, setSlideCount] = useState(0)
-
-  useEffect(() => {
-    document.documentElement.classList.add("theme-transition")
-    if (darkMode) {
-      document.documentElement.classList.remove("light-mode")
-      localStorage.setItem("theme", "dark")
-    } else {
-      document.documentElement.classList.add("light-mode")
-      localStorage.setItem("theme", "light")
-    }
-    const timeout = setTimeout(() => {
-      document.documentElement.classList.remove("theme-transition")
-    }, 600)
-    return () => clearTimeout(timeout)
-  }, [darkMode])
 
   // Carousel slide tracking
   const onSelect = useCallback(() => {
@@ -226,5 +203,4 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
     </>
   )
 }
-
 

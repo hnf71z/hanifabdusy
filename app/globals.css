@@ -80,6 +80,12 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+
+  /* Keep portfolio theme tokens stable in dark mode */
+  --bg: #0e0e0e;
+  --fg: #ffffff;
+  --accent: #2563eb;
+  --gray: #222222;
 }
 
 @theme inline {
@@ -161,12 +167,12 @@ body {
 .theme-transition *,
 .theme-transition *::before,
 .theme-transition *::after {
-  transition: background-color 0.5s ease,
-    color 0.4s ease,
-    border-color 0.4s ease,
-    box-shadow 0.4s ease,
-    filter 0.4s ease,
-    opacity 0.4s ease !important;
+  transition: background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease,
+    opacity 0.15s ease !important;
 }
 
 ::-webkit-scrollbar {
@@ -626,7 +632,7 @@ nav.nav-hidden {
 }
 
 .project-image {
-  height: 60%;
+  height: 68%;
   overflow: hidden;
 }
 
@@ -645,10 +651,11 @@ nav.nav-hidden {
 
 .project-info {
   padding: 24px;
-  height: 40%;
+  height: 32%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 8px;
 }
 
 .project-number {
@@ -671,7 +678,7 @@ nav.nav-hidden {
   font-size: 0.9rem;
   color: #8b949e;
   line-height: 1.5;
-  margin-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .project-tags {
@@ -753,7 +760,7 @@ nav.nav-hidden {
   position: relative;
 }
 
-.project-info {
+.project-row .project-info {
   flex: 1 1 0%;
   padding-top: 100px;
 }
@@ -764,7 +771,7 @@ nav.nav-hidden {
   z-index: 10;
 }
 
-.project-image {
+.project-row .project-image {
   width: 100%;
   height: 800px;
   object-fit: cover;
@@ -1456,11 +1463,11 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
     margin-bottom: 100px;
   }
 
-  .project-info h3 {
+  .project-row .project-info h3 {
     font-size: 3rem !important;
   }
 
-  .project-image {
+  .project-row .project-image {
     height: 400px;
   }
 
@@ -1607,11 +1614,11 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
     margin-bottom: 150px;
   }
 
-  .project-info h3 {
+  .project-row .project-info h3 {
     font-size: 4rem !important;
   }
 
-  .project-image {
+  .project-row .project-image {
     height: 600px;
   }
 
@@ -2115,14 +2122,18 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
 }
 
 /* CV Button */
-.light-mode .cv-btn {
+.light-mode .cv-btn,
+.light-mode .cv-btn:visited {
   border-color: rgba(0, 0, 0, 0.15);
-  color: #1a1a2e;
+  color: #1a1a2e !important;
 }
 
-.light-mode .cv-btn:hover {
+.light-mode .cv-btn:hover,
+.light-mode .cv-btn:focus-visible {
   border-color: var(--accent);
-  color: var(--accent);
+  color: #1d4ed8 !important;
+  background: rgba(37, 99, 235, 0.08);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
 }
 
 /* Dividers */
@@ -2458,6 +2469,24 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
   font-weight: normal !important;
 }
 
+/* Dark mode: make timeline subtitle readable */
+html:not(.light-mode) .timeline-subtitle,
+html:not(.light-mode) .vertical-timeline-element .vertical-timeline-element-subtitle {
+  color: #ffffff !important;
+  opacity: 0.9;
+}
+
+/* Active timeline card border highlight */
+.vertical-timeline-element-content.active {
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.18), 0 8px 32px rgba(0,0,0,0.5);
+  border-color: rgba(59,130,246,0.6) !important;
+}
+
+/* Make arrow also use accent when active */
+.vertical-timeline-element-content.active::before {
+  border-right-color: rgba(59,130,246,0.6) !important;
+}
+
 .light-mode .timeline-date {
   color: #333333 !important;
 }
@@ -2573,7 +2602,9 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
 
 .light-mode .show-all-btn:hover {
   border-color: var(--accent);
-  color: var(--accent);
+  color: #1d4ed8;
+  background: rgba(37, 99, 235, 0.08);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.12);
 }
 
 /* Marquee text */
@@ -2769,7 +2800,7 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
 
 /* Section Label */
 .section-label {
-  color: var(--accent);
+  color: #ffffff;
 }
 
 .light-mode .section-label {
@@ -2863,5 +2894,53 @@ html[class^="img_"][amp4ads=""][i-amphtml-layout=""][i-amphtml-no-boilerplate=""
 }
 
 .light-mode .cert-link {
+  color: #1d4ed8;
   border-top-color: rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .cert-link:hover {
+  color: #1e40af;
+  opacity: 1;
+}
+
+/* Dark mode contrast overrides for interactive accent elements */
+.dark .cv-btn:hover,
+.dark .show-all-btn:hover,
+.dark .project-link-btn:hover,
+html:not(.light-mode) .cv-btn:hover,
+html:not(.light-mode) .show-all-btn:hover,
+html:not(.light-mode) .project-link-btn:hover {
+  border-color: #60a5fa !important;
+  color: #93c5fd !important;
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.dark .cert-link,
+.dark .cert-link:hover,
+html:not(.light-mode) .cert-link,
+html:not(.light-mode) .cert-link:hover {
+  color: #93c5fd !important;
+  opacity: 1;
+}
+
+.dark .project-tag,
+html:not(.light-mode) .project-tag {
+  color: #bfdbfe !important;
+  border-color: rgba(96, 165, 250, 0.55) !important;
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.dark .project-number,
+html:not(.light-mode) .project-number {
+  color: #93c5fd !important;
+}
+
+/* Ensure hover text is readable in dark mode: force white on interactive elements */
+html:not(.light-mode) .nav-links a:hover,
+html:not(.light-mode) .cv-btn:hover,
+html:not(.light-mode) .show-all-btn:hover,
+html:not(.light-mode) .project-link-btn:hover,
+html:not(.light-mode) .cert-link:hover,
+html:not(.light-mode) .contact-value:hover {
+  color: #ffffff !important;
 }
