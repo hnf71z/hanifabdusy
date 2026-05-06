@@ -32,22 +32,13 @@ export default function Projects() {
     <>
       <div className="blob" id="cursor-blob"></div>
 
-      <nav>
-        <div className="nav-actions">
-          <ul className="nav-links" style={{ position: "relative", left: "auto", transform: "none" }}>
-            <li>
-              <a href="/" style={{ display: "flex", alignItems: "center", gap: "8px", textTransform: "none" }}>
-                <FaArrowLeft /> Back to Home
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
       <main>
         <section id="all-projects" className="container" style={{ paddingTop: "120px", minHeight: "100vh" }}>
-          <div className="section-heading">
-            <h1 style={{ fontSize: "4rem", fontFamily: "var(--syne)", marginBottom: "40px" }}>ALL PROJECTS</h1>
+          <div className="section-heading" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "40px", flexWrap: "wrap", gap: "20px" }}>
+            <h1 style={{ fontSize: "4rem", fontFamily: "var(--syne)", margin: 0 }}>ALL PROJECTS</h1>
+            <a href="/" style={{ display: "flex", alignItems: "center", gap: "8px", textTransform: "none", padding: "10px 20px", border: "1px solid var(--fg)", borderRadius: "30px", fontSize: "1rem", color: "var(--fg)", textDecoration: "none", opacity: 0.8 }} className="project-link-btn">
+              <FaArrowLeft /> Back to Home
+            </a>
           </div>
           <div className="divider" style={{ marginBottom: "60px" }}></div>
           

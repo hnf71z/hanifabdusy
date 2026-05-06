@@ -17,6 +17,8 @@ export interface Project {
   images: string[]
   /** Optional YouTube video ID to embed (e.g. "dQw4w9WgXcQ") */
   video?: string
+  /** Optional PDF URL for project documentation (e.g. "/pdfs/my-project.pdf") */
+  pdf?: string
   content: string
   link: string
   github: string
@@ -45,8 +47,8 @@ export const projects: Project[] = [
   {
     slug: "ai-learning-insight",
     title: "AI Learning Insight",
-    desc: "Full-stack e-commerce web app with product catalog, cart system, and payment integration. Built to be responsive and highly performant.",
-    tags: ["React.js", "Express", "Supabase", "AI/ML"],
+    desc: "AI Learning Insight Dicoding is an IT learning platform with learning pattern prediction features to help improve users’ learning quality.",
+    tags: ["React.js", "Express", "Supabase", "AI Prediction"],
     image: "/ai-learning-insight-landingpage.webp",
     images: [
       "/ai-learning-insight-landingpage.webp",
@@ -54,8 +56,10 @@ export const projects: Project[] = [
       "/ai-insight-03.webp",
       "/ai-insight-04.webp",
     ],
+    video: "QR11StxPU4Q",
+    pdf: "/pdf/ai-learning-insight-guide-book.pdf",
     content:
-      "This project aims to simplify online shopping with a clean and intuitive user interface. It features a complete shopping cart system, user authentication, and fully working Stripe payment integration.",
+      "An intelligent IT learning platform powered by AI algorithms that analyze learning patterns and provide personalized recommendations. Features progress tracking, adaptive learning paths, and data-driven insights to help students optimize their learning journey.",
     link: "https://ai-learning-insight-dicoding.vercel.app/",
     github: "#",
   },
@@ -63,7 +67,7 @@ export const projects: Project[] = [
     slug: "si-ami-polines",
     title: "SI-AMI Polines",
     desc: "Collaborative task management tool with drag-and-drop boards and real-time updates.",
-    tags: ["React", "Express", "Socket.io"],
+    tags: ["Laravel", "MySQL", "Flowbite", "Tailwind CSS"],
     image: "/login-page-siami.webp",
     images: [
       "/login-page-siami.webp",
@@ -71,8 +75,10 @@ export const projects: Project[] = [
       "/periode-audit-02.webp",
       "/daftar-tilik-03.webp",
     ],
+    video: "OVdSFwrzB8k",
+    pdf: "/pdf/siami-guide-book.pdf",
     content:
-      "Developed a real-time collaborative workspace where users can track their tasks using a drag-and-drop Kanban board interface.",
+      "A comprehensive audit management system for Semarang State Polytechnic that streamlines internal audit processes. Features include real-time audit tracking, audit plan management, audit item (tilik) handling, and an intuitive admin dashboard for efficient collaboration.",
     link: "#",
     github: "#",
   },
@@ -80,14 +86,15 @@ export const projects: Project[] = [
     slug: "iot-forecasting-weather-with-flutter",
     title: "IOT Forecasting Weather With Flutter",
     desc: "IoT-based weather forecasting application built with Flutter, providing real-time weather data visualization and prediction.",
-    tags: ["Flutter", "IoT", "Firebase"],
+    tags: ["Flutter", "IoT", "Firebase", "AI Prediction"],
     image: "/iot-page.webp",
     images: [
       "/iot-page.webp",
     ],
     video: "EncEIESbwjg",
+    pdf: "/pdf/artikel-tubes-iot.pdf",
     content:
-      "An IoT-driven weather forecasting app that collects sensor data and presents it through a beautiful Flutter interface with charts and real-time updates.",
+      "An IoT-powered weather forecasting app built with Flutter that integrates hardware sensors with machine learning algorithms. Features real-time sensor data collection, interactive charts, historical analysis, and accurate weather predictions through intelligent AI processing.",
     link: "#",
     github: "#",
   },
@@ -100,8 +107,10 @@ export const projects: Project[] = [
     images: [
       "/pbl-polivent-image.webp",
     ],
+    video: "W_PYCl4RyPk",
+    pdf: "/pdf/polivent-guide-book.pdf",
     content:
-      "POLIVENT is a campus event management platform that enables students and organizations to create, manage, and participate in events with a seamless digital experience.",
+      "A campus event management platform enabling students and organizations to create, manage, and coordinate events seamlessly. Includes event registration, activity scheduling, participant notifications, and a dual-platform solution (Flutter mobile + Laravel backend) for accessibility.",
     link: "#",
     github: "#",
   },
@@ -109,19 +118,18 @@ export const projects: Project[] = [
     slug: "delima-website",
     title: "Delima Website",
     desc: "Modern organizational website featuring scroll-driven animations, glassmorphism, and responsive design.",
-    tags: ["Next.js", "CSS3", "TypeScript"],
+    tags: ["Next.js", "Tailwind CSS", "TypeScript", "ShadCN UI"],
     image: "/delima-umkm.webp",
     images: [
       "/delima-umkm.webp",
       "/delima-02.webp",
-      "/delima-03.webp",
       "/delima-04.webp",
       "/delima-05.webp",
       "/delima-06.webp",
       "/delima-07.webp",
     ],
     content:
-      "A creatively designed organizational website using highly optimized CSS, smooth scroll-driven animations, and a premium glassmorphism aesthetic.",
+      "A modern organizational website featuring smooth scroll-driven animations, glassmorphism design patterns, and fully responsive layouts. Built with Next.js and Tailwind CSS, showcasing advanced CSS techniques and premium UX across all devices."
     link: "https://delimafnb.vercel.app/",
     github: "#",
   },
@@ -138,7 +146,7 @@ export const projects: Project[] = [
       "/arsip-catatan.webp",
     ],
     content:
-      "Personal Notes is a lightweight note-taking app that supports creating, archiving, searching, and deleting notes — all stored locally in the browser.",
+      "A minimalist note-taking app with local storage support. Create, archive, search, and delete notes seamlessly with a clean, intuitive interface and offline accessibility.",
     link: "https://personal-note-app-sepia.vercel.app/login",
     github: "#",
   },

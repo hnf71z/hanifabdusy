@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, use, useCallback } from "react"
-import { FaArrowLeft, FaExternalLinkAlt, FaGithub } from "react-icons/fa"
+import { FaArrowLeft, FaExternalLinkAlt, FaGithub, FaFilePdf } from "react-icons/fa"
 import Image from "next/image"
 import { getProjectBySlug } from "@/lib/data"
 import {
@@ -76,27 +76,20 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
     <>
       <div className="blob" id="cursor-blob"></div>
 
-      <nav>
-        <div className="nav-actions">
-          <ul className="nav-links" style={{ position: "relative", left: "auto", transform: "none" }}>
-            <li>
-              <a href="/projects" style={{ display: "flex", alignItems: "center", gap: "8px", textTransform: "none" }}>
-                <FaArrowLeft /> Back to Projects
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
       <main>
         <section className="container" style={{ paddingTop: "120px", minHeight: "100vh", paddingBottom: "100px" }}>
-          <div className="section-heading">
-            <h1 style={{ fontSize: "clamp(2.5rem, 8vw, 5rem)", fontFamily: "var(--syne)", marginBottom: "20px" }}>
-              {project.title.toUpperCase()}
-            </h1>
-            <p style={{ fontSize: "1.2rem", opacity: 0.8, maxWidth: "800px" }}>
-              {project.desc}
-            </p>
+          <div className="section-heading" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "40px", flexWrap: "wrap", gap: "20px" }}>
+            <div>
+              <h1 style={{ fontSize: "clamp(2.5rem, 8vw, 5rem)", fontFamily: "var(--syne)", marginBottom: "20px" }}>
+                {project.title.toUpperCase()}
+              </h1>
+              <p style={{ fontSize: "1.2rem", opacity: 0.8, maxWidth: "800px" }}>
+                {project.desc}
+              </p>
+            </div>
+            <a href="/projects" style={{ display: "flex", alignItems: "center", gap: "8px", textTransform: "none", padding: "10px 20px", border: "1px solid var(--fg)", borderRadius: "30px", fontSize: "1rem", color: "var(--fg)", textDecoration: "none", opacity: 0.8, whiteSpace: "nowrap" }} className="project-link-btn">
+              <FaArrowLeft /> Back to Projects
+            </a>
           </div>
           
           <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", margin: "30px 0 50px" }}>
@@ -201,7 +194,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
           <div style={{ display: "flex", flexWrap: "wrap", gap: "60px" }}>
             <div style={{ flex: "1 1 400px" }}>
               <h3 style={{ fontSize: "2rem", fontFamily: "var(--syne)", marginBottom: "20px" }}>About the Project</h3>
-              <p style={{ fontSize: "1.1rem", lineHeight: "1.8", color: "var(--fg)", opacity: 0.8 }}>
+              <p style={{ fontSize: "1.1rem", lineHeight: "1.8", color: "var(--fg)", opacity: 0.8, marginBottom: "40px" }}>
                 {project.content}
               </p>
             </div>
@@ -214,6 +207,17 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
                 <a href={project.github} className="project-link-btn outline" style={{ justifyContent: "center", padding: "16px 24px" }}>
                   <FaGithub style={{ marginRight: 10 }} /> View Source Code
                 </a>
+                {project.pdf && (
+                  <a
+                    href={project.pdf}
+                    className="project-link-btn outline"
+                    style={{ justifyContent: "center", padding: "16px 24px" }}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <FaFilePdf style={{ marginRight: 10 }} /> View The Document
+                  </a>
+                )}
               </div>
             </div>
           </div>
