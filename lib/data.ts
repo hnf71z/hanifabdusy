@@ -129,7 +129,7 @@ export const projects: Project[] = [
       "/delima-07.webp",
     ],
     content:
-      "A modern organizational website featuring smooth scroll-driven animations, glassmorphism design patterns, and fully responsive layouts. Built with Next.js and Tailwind CSS, showcasing advanced CSS techniques and premium UX across all devices."
+      "A modern organizational website featuring smooth scroll-driven animations, glassmorphism design patterns, and fully responsive layouts. Built with Next.js and Tailwind CSS, showcasing advanced CSS techniques and premium UX across all devices.",
     link: "https://delimafnb.vercel.app/",
     github: "#",
   },
