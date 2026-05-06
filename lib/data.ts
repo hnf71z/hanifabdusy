@@ -50,7 +50,9 @@ export const projects: Project[] = [
     image: "/ai-learning-insight-landingpage.webp",
     images: [
       "/ai-learning-insight-landingpage.webp",
-      "/ai-learning-insight.webp",
+      "/ai-insight-02.webp",
+      "/ai-insight-03.webp",
+      "/ai-insight-04.webp",
     ],
     content:
       "This project aims to simplify online shopping with a clean and intuitive user interface. It features a complete shopping cart system, user authentication, and fully working Stripe payment integration.",
@@ -79,9 +81,9 @@ export const projects: Project[] = [
     title: "IOT Forecasting Weather With Flutter",
     desc: "IoT-based weather forecasting application built with Flutter, providing real-time weather data visualization and prediction.",
     tags: ["Flutter", "IoT", "Firebase"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    image: "/iot-page.webp",
     images: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+      "/iot-page.webp",
     ],
     video: "EncEIESbwjg",
     content:
@@ -94,9 +96,9 @@ export const projects: Project[] = [
     title: "POLIVENT",
     desc: "Event management platform for campus communities with registration, scheduling, and notification features.",
     tags: ["Flutter", "Laravel", "MySQL"],
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    image: "/pbl-polivent-image.webp",
     images: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+      "/pbl-polivent-image.webp",
     ],
     content:
       "POLIVENT is a campus event management platform that enables students and organizations to create, manage, and participate in events with a seamless digital experience.",
@@ -137,7 +139,7 @@ export const projects: Project[] = [
     ],
     content:
       "Personal Notes is a lightweight note-taking app that supports creating, archiving, searching, and deleting notes — all stored locally in the browser.",
-    link: "#",
+    link: "https://personal-note-app-sepia.vercel.app/login",
     github: "#",
   },
 ]
