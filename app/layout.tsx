@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Syne, Inter } from "next/font/google"
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/next"
 import { ClientThemeWrapper } from "@/components/ClientThemeWrapper"
 import "./globals.css"
 
