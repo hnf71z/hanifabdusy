@@ -286,7 +286,7 @@ export default function Home() {
                 <Card key={project.title} customClass="project-card">
                   <div className="project-card-content">
                     <div className="project-image">
-                      <img src={project.image} alt={project.title} />
+                      <img src={project.image} alt={project.title} loading={index === 0 ? "eager" : "lazy"} />
                     </div>
                     <div className="project-info">
                       <span className="project-number">

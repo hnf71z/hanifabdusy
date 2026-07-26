@@ -20,10 +20,10 @@ export default function Projects() {
           <div className="divider" style={{ marginBottom: "60px" }}></div>
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "40px" }}>
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <div key={project.slug} style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
                 <div style={{ height: "200px", overflow: "hidden", position: "relative" }}>
-                  <Image src={project.image} alt={project.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }} width={800} height={600} />
+                  <Image src={project.image} alt={project.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }} width={800} height={600} priority={index < 4} />
                 </div>
                 <div style={{ padding: "24px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
                   <h3 style={{ fontSize: "1.5rem", fontFamily: "var(--syne)", marginBottom: "12px", color: "var(--fg)" }}>

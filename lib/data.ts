@@ -134,6 +134,26 @@ export const projects: Project[] = [
     github: "#",
   },
   {
+    slug: "teman-coffe",
+    title: "Teman Coffe",
+    desc: "TemanCoffee is a modern coffee shop website with an interactive interface, online ordering, and an admin dashboard.",
+    tags: ["Next.js", "Tailwind CSS", "TypeScript", "Supabase"],
+    image: "/temancoffe-hero.png",
+    images: [
+      "/temancoffe-hero.png",
+      "/temancoffe-menu.png",
+      "/temancoffe-chat.png",
+      "/temancoffe-login.png",
+      "/temancoffe-dashboard.png",
+      "/temancoffe-manajemenproduk.png",
+      "/temancoffe-detailpesanan.png"
+    ],
+    content:
+      "TemanCoffee is a modern coffee shop website that integrates an interactive user interface, an online ordering system, and an admin dashboard. Customers can easily browse the menu and place orders, while administrators can manage products, monitor orders, and analyze sales data efficiently.",
+    link: "https://temancoffe.vercel.app/",
+    github: "#",
+  },
+  {
     slug: "personal-notes",
     title: "Personal Notes",
     desc: "A clean and minimalist note-taking web application with archive, search, and theme support.",
