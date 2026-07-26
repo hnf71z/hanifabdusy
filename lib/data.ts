@@ -186,7 +186,16 @@ export function getProjectBySlug(slug: string): Project | undefined {
 
 export const experiences: Experience[] = [
   {
-    title: "Frontend Developer",
+    title: "Frontend Developer Intern",
+    subtitle: "PT. Rapier Technology",
+    description:
+      "Building modern web applications using React, Next.js, and Node.js. Focused on creating pixel-perfect, responsive UI with exceptional user experience.",
+    date: "August 2026 — December 2026",
+    iconType: "code",
+    iconBg: "#2563eb",
+  },
+  {
+    title: "Web Developer",
     subtitle: "Self-Learning",
     description:
       "Building modern web applications using React, Next.js, and Node.js. Focused on creating pixel-perfect, responsive UI with exceptional user experience.",

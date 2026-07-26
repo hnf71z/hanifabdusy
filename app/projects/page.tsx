@@ -29,7 +29,7 @@ export default function Projects() {
                   <h3 style={{ fontSize: "1.5rem", fontFamily: "var(--syne)", marginBottom: "12px", color: "var(--fg)" }}>
                     {project.title}
                   </h3>
-                  <p style={{ color: "var(--fg)", opacity: 0.7, fontSize: "0.9rem", marginBottom: "20px", flexGrow: 1 }}>
+                  <p className="project-grid-desc" style={{ color: "var(--fg)", opacity: 0.7, fontSize: "0.9rem", marginBottom: "20px", flexGrow: 1 }}>
                     {project.desc}
                   </p>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "24px" }}>

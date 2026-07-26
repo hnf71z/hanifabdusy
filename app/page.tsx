@@ -276,8 +276,8 @@ export default function Home() {
             <CardSwap
               width={800}
               height={500}
-              cardDistance={60}
-              verticalDistance={70}
+              cardDistance={20}
+              verticalDistance={30}
               delay={2000}
               pauseOnHover={true}
               easing="elastic"
@@ -293,14 +293,14 @@ export default function Home() {
                         {String(index + 1).padStart(3, "0")} / PROJECT
                       </span>
                       <h3 className="project-title">{project.title}</h3>
-                      <p className="project-desc">{project.desc}</p>
+                      <p className="project-desc hidden md:block">{project.desc}</p>
                     </div>
                   </div>
                 </Card>
               ))}
             </CardSwap>
           </div>
-          <div style={{ textAlign: "center", marginTop: "60px" }} data-aos="zoom-in" data-aos-delay="300">
+          <div style={{ textAlign: "center", marginTop: "60px", paddingBottom: "40px" }} data-aos="zoom-in" data-aos-delay="300">
             <a href="/projects" className="show-all-btn">Show All Projects</a>
           </div>
         </section>
@@ -347,7 +347,7 @@ export default function Home() {
                         cursor: "pointer",
                       }}
                       icon={experienceIconMap[exp.iconType]}
-                      onClick={() => setActiveExp(index)}
+                      onTimelineElementClick={() => setActiveExp(index)}
                     >
                       <h3 className="timeline-title">{exp.title}</h3>
                       <h4 className="timeline-subtitle">{exp.subtitle}</h4>

@@ -79,19 +79,6 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
 
           {/* Project Image Carousel */}
           <div className="project-carousel-wrapper">
-            {/* Left arrow — outside the card */}
-            {project.images.length > 1 && (
-              <button
-                className="project-carousel-prev"
-                onClick={() => carouselApi?.scrollPrev()}
-                aria-label="Previous slide"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </button>
-            )}
-
             {/* Carousel */}
             <div className="project-carousel-inner">
               <Carousel
@@ -137,24 +124,21 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
                 </div>
               )}
             </div>
-
-            {/* Right arrow — outside the card */}
-            {project.images.length > 1 && (
-              <button
-                className="project-carousel-next"
-                onClick={() => carouselApi?.scrollNext()}
-                aria-label="Next slide"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </button>
-            )}
           </div>
 
-          {/* Bottom controls: dots */}
+          {/* Bottom controls: dots and arrows */}
           {project.images.length > 1 && (
             <div className="project-carousel-controls">
+              <button
+                className="project-carousel-prev"
+                onClick={() => carouselApi?.scrollPrev()}
+                aria-label="Previous slide"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+
               <div className="project-carousel-dots">
                 {project.images.map((_, index) => (
                   <button
@@ -165,6 +149,16 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
                   />
                 ))}
               </div>
+
+              <button
+                className="project-carousel-next"
+                onClick={() => carouselApi?.scrollNext()}
+                aria-label="Next slide"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
             </div>
           )}
 
