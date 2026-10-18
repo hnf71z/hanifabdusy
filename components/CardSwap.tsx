@@ -102,6 +102,8 @@ const CardSwap: React.FC<CardSwapProps> = ({
   children
 }) => {
   const isMobile = useIsMobile();
+  const activeCardDistance = isMobile ? Math.min(cardDistance, 12) : cardDistance;
+  const activeVerticalDistance = isMobile ? Math.min(verticalDistance, 16) : verticalDistance;
 
   const config = useMemo<SwapConfig>(() => {
     if (isMobile) {
@@ -113,7 +115,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
         promoteOverlap: 0.55,
         returnDelay: 0.08,
         promoteStagger: 0.06,
-        dropDistance: 320
+        dropDistance: 280
       };
     }
     return easing === 'elastic'
@@ -125,7 +127,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
           promoteOverlap: 0.9,
           returnDelay: 0.05,
           promoteStagger: 0.15,
-          dropDistance: 500
+          dropDistance: 450
         }
       : {
           ease: 'power1.inOut',
@@ -135,7 +137,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
           promoteOverlap: 0.45,
           returnDelay: 0.2,
           promoteStagger: 0.15,
-          dropDistance: 500
+          dropDistance: 450
         };
   }, [easing, isMobile]);
 
@@ -151,7 +153,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
     if (total === 0) return;
 
     refs.forEach((r, i) => {
-      if (r.current) placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount);
+      if (r.current) placeNow(r.current, makeSlot(i, activeCardDistance, activeVerticalDistance, total), skewAmount);
     });
 
     if (total < 2) return;
@@ -203,7 +205,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
       rest.forEach((idx, i) => {
         const el = refs[idx].current;
         if (!el) return;
-        const slot = makeSlot(i, cardDistance, verticalDistance, total);
+        const slot = makeSlot(i, activeCardDistance, activeVerticalDistance, total);
         tl.set(el, { zIndex: slot.zIndex }, 'promote');
         tl.to(
           el,
@@ -218,7 +220,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
         );
       });
 
-      const backSlot = makeSlot(total - 1, cardDistance, verticalDistance, total);
+      const backSlot = makeSlot(total - 1, activeCardDistance, activeVerticalDistance, total);
       tl.addLabel('return', `promote+=${config.durMove * config.returnDelay}`);
       tl.call(() => gsap.set(elFront, { zIndex: backSlot.zIndex }), undefined, 'return');
       tl.to(
@@ -262,14 +264,22 @@ const CardSwap: React.FC<CardSwapProps> = ({
       if (node && pauseHandler) node.removeEventListener('mouseenter', pauseHandler);
       if (node && resumeHandler) node.removeEventListener('mouseleave', resumeHandler);
     };
-  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing, isMobile, config]);
+  }, [cardDistance, verticalDistance, activeCardDistance, activeVerticalDistance, delay, pauseOnHover, skewAmount, easing, isMobile, config]);
+
+  const cardWidth = isMobile ? 'min(360px, calc(100vw - 84px))' : width;
+  const cardHeight = isMobile ? 330 : height;
 
   const rendered = childArr.map((child, i) =>
     isValidElement<CardProps>(child)
       ? cloneElement(child, {
           key: i,
           ref: refs[i],
-          style: { width, height, ...(child.props.style ?? {}) },
+          style: {
+            width: cardWidth,
+            height: cardHeight,
+            maxWidth: '100%',
+            ...(child.props.style ?? {}),
+          },
           onClick: e => {
             child.props.onClick?.(e as React.MouseEvent<HTMLDivElement>);
             onCardClick?.(i);
@@ -279,7 +289,15 @@ const CardSwap: React.FC<CardSwapProps> = ({
   );
 
   return (
-    <div ref={container} className="card-swap-container" style={{ width, height }}>
+    <div
+      ref={container}
+      className="card-swap-container"
+      style={{
+        width: cardWidth,
+        height: cardHeight,
+        maxWidth: '100%',
+      }}
+    >
       {rendered}
     </div>
   );

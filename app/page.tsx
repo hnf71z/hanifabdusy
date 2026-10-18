@@ -310,10 +310,10 @@ export default function Home() {
           <div className="divider"></div>
           <div className="cardswap-wrapper">
             <CardSwap
-              width={800}
-              height={500}
-              cardDistance={20}
-              verticalDistance={30}
+              width={560}
+              height={380}
+              cardDistance={15}
+              verticalDistance={20}
               delay={2000}
               pauseOnHover={true}
               easing="elastic"
