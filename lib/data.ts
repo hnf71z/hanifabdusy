@@ -29,6 +29,28 @@ export interface Certificate {
 
 export const projects: Project[] = [
   {
+    slug: "rapier-absensi",
+    title: "Rapier Absensi",
+    desc: "IoT-based employee attendance and workforce management system featuring real-time RFID tap authentication, automated tracking, and administrative dashboards.",
+    tags: ["SvelteKit", "Express.js", "PostgreSQL", "IoT RFID", "Socket.IO", "TypeScript"],
+    image: "/rapier-absensi/rapier-login.webp",
+    images: [
+      "/rapier-absensi/rapier-login.webp",
+      "/rapier-absensi/iot-rapier.webp",
+      "/rapier-absensi/rapier-dashboard.webp",
+      "/rapier-absensi/rapier-dashboard-karyawan.webp",
+      "/rapier-absensi/rapier-rekap-harian.webp",
+      "/rapier-absensi/rapier-laporan-absensi.webp",
+      "/rapier-absensi/rapier-ringkasan-laporan.webp",
+      "/rapier-absensi/rapier-detail-keterlambatan.webp",
+      "/rapier-absensi/rapier-manajemen-tugas.webp",
+    ],
+    content:
+      "Rapier Absensi is an end-to-end IoT-powered employee attendance and workforce management platform. Integrated with physical RFID card hardware (ESP32 / RC522), it enables instant contactless check-ins and check-outs synchronized in real time via Socket.IO. The platform features role-based access for Admins, HR officers, and Employees, providing interactive dashboards, automated late-arrival calculations, shift and task management, daily recap logs, and downloadable periodic attendance reports in Excel and PDF formats.",
+    link: "#",
+    github: "#",
+  },
+  {
     slug: "ai-learning-insight",
     title: "AI Learning Insight",
     desc: "AI Learning Insight Dicoding is an IT learning platform with learning pattern prediction features to help improve users’ learning quality.",
@@ -140,8 +162,8 @@ export const projects: Project[] = [
   {
     slug: "bensco",
     title: "BENSCO",
-    desc: "Purchase order management system with product ordering, access management, and process tracking features.",
-    tags: ["Purchase Order", "Dashboard", "Web Application"],
+    desc: "Warehouse Management System (WMS) for PT. Bensco to efficiently manage spare parts inventory from receiving to dispatch.",
+    tags: ["WMS", "Inventory Management", "Dashboard", "Web Application"],
     image: "/bensco/bensco-dashboard.webp",
     images: [
       "/bensco/bensco-login.webp",
@@ -153,7 +175,7 @@ export const projects: Project[] = [
       "/bensco/bensco-process.webp",
     ],
     content:
-      "BENSCO is a purchase order management system featuring order creation, product ordering, access management, and process tracking.",
+      "The Warehouse Management System (WMS) at PT. Bensco is designed to efficiently manage spare parts inventory, covering the complete lifecycle from goods receiving and storage to picking and dispatch. The system enables spare parts categorization based on specific types or operational requirements, significantly accelerating item retrieval and streamlining material handling processes.",
     link: "#",
     github: "#",
   },
