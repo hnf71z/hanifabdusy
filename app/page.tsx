@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import dynamic from "next/dynamic"
 import Image from "next/image"
 import "react-vertical-timeline-component/style.min.css"
@@ -49,14 +49,40 @@ const experienceIconMap: Record<string, React.ReactNode> = {
   graduation: <FaGraduationCap />,
 }
 
+const navItems = [
+  { href: "#hero", label: "Home", icon: <FaHome />, id: "hero" },
+  { href: "#skills", label: "Skills", icon: <FaCode />, id: "skills" },
+  { href: "#projects", label: "Projects", icon: <FaFolder />, id: "projects" },
+  { href: "#experience", label: "Experience", icon: <FaGraduationCap />, id: "experience" },
+  { href: "#contact", label: "Contact", icon: <FaEnvelope />, id: "contact" },
+]
+
+const cardSwapProjects = [
+  "ai-learning-insight",
+  "si-ami-polines",
+  "iot-forecasting-weather-with-flutter",
+]
+  .map((slug) => projects.find((p) => p.slug === slug))
+  .filter((p): p is (typeof projects)[0] => Boolean(p))
+
 export default function Home() {
   const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [activeExp, setActiveExp] = useState<number | null>(null)
+  const [activeSection, setActiveSection] = useState("hero")
+  const isManualScroll = useRef(false)
+  const manualTimeout = useRef<NodeJS.Timeout | null>(null)
   const currentTheme = resolvedTheme === "light" ? "light" : "dark"
 
   const toggleTheme = () => {
     setTheme(currentTheme === "dark" ? "light" : "dark")
+  }
+
+  const isItemActive = (id: string) => {
+    if (id === "hero") return activeSection === "hero" || activeSection === "about"
+    if (id === "skills") return activeSection === "skills" || activeSection === "github"
+    if (id === "experience") return activeSection === "experience" || activeSection === "certificates"
+    return activeSection === id
   }
 
   useEffect(() => {
@@ -96,8 +122,31 @@ export default function Home() {
         const direction = index % 2 === 0 ? 1 : -1
           ; (label as HTMLElement).style.transform = `translateY(${scroll * 0.1 * direction}px)`
       })
+
+      // Section scroll spy for active navigation state
+      if (!isManualScroll.current) {
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
+          setActiveSection("contact")
+          return
+        }
+
+        const sectionIds = ["hero", "about", "skills", "github", "projects", "experience", "certificates", "contact"]
+        const scrollPosition = window.scrollY + 220
+        let current = "hero"
+
+        for (const id of sectionIds) {
+          const el = document.getElementById(id)
+          if (el) {
+            const top = el.offsetTop
+            if (scrollPosition >= top) {
+              current = id
+            }
+          }
+        }
+        setActiveSection(current)
+      }
     }
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
 
     AOS.init({
       duration: 800,
@@ -115,8 +164,8 @@ export default function Home() {
     )
     document.querySelectorAll(".reveal-text, .reveal-up").forEach((el) => observer.observe(el))
 
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    // Smooth scrolling for non-sidebar anchors
+    document.querySelectorAll('a[href^="#"]:not(.sidebar-item)').forEach((anchor) => {
       anchor.addEventListener("click", function (this: HTMLAnchorElement, e) {
         e.preventDefault()
         const href = this.getAttribute("href")
@@ -130,6 +179,7 @@ export default function Home() {
       document.removeEventListener("mousemove", handleMouseMove)
       window.removeEventListener("scroll", handleScroll)
       observer.disconnect()
+      if (manualTimeout.current) clearTimeout(manualTimeout.current)
     }
   }, [])
 
@@ -139,27 +189,38 @@ export default function Home() {
 
       <div className="vertical-sidebar">
         <nav className="sidebar-nav">
-          <a href="#hero" className="sidebar-item" data-tooltip="Home" aria-label="Home">
-            <FaHome />
-          </a>
-          <a href="#skills" className="sidebar-item" data-tooltip="Skills" aria-label="Skills">
-            <FaCode />
-          </a>
-          <a href="#projects" className="sidebar-item" data-tooltip="Projects" aria-label="Projects">
-            <FaFolder />
-          </a>
-          <a href="#experience" className="sidebar-item" data-tooltip="Experience" aria-label="Experience">
-            <FaGraduationCap />
-          </a>
-          <a href="#contact" className="sidebar-item" data-tooltip="Contact" aria-label="Contact">
-            <FaEnvelope />
-          </a>
+          {navItems.map((item) => {
+            const active = isItemActive(item.id)
+            return (
+              <a
+                key={item.id}
+                href={item.href}
+                className={`sidebar-item ${active ? "active" : ""}`}
+                data-tooltip={item.label}
+                aria-label={item.label}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setActiveSection(item.id)
+                  isManualScroll.current = true
+                  if (manualTimeout.current) clearTimeout(manualTimeout.current)
+                  manualTimeout.current = setTimeout(() => {
+                    isManualScroll.current = false
+                  }, 800)
+                  document.querySelector(item.href)?.scrollIntoView({ behavior: "smooth" })
+                }}
+              >
+                {item.icon}
+              </a>
+            )
+          })}
         </nav>
+        <div className="sidebar-divider" />
         <button
           className="sidebar-theme-toggle"
           onClick={toggleTheme}
-          data-tooltip={currentTheme === "dark" ? "Light mode" : "Dark mode"}
+          data-tooltip={mounted ? (currentTheme === "dark" ? "Light mode" : "Dark mode") : undefined}
           aria-label="Toggle theme"
+          suppressHydrationWarning
         >
           {mounted ? (currentTheme === "dark" ? <FaSun /> : <FaMoon />) : <FaSun />}
         </button>
@@ -257,7 +318,7 @@ export default function Home() {
               pauseOnHover={true}
               easing="elastic"
             >
-              {projects.slice(0, 3).map((project, index) => (
+              {cardSwapProjects.map((project, index) => (
                 <Card key={project.title} customClass="project-card">
                   <div className="project-card-content">
                     <div className="project-image">

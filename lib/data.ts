@@ -29,28 +29,6 @@ export interface Certificate {
 
 export const projects: Project[] = [
   {
-    slug: "rapier-absensi",
-    title: "Rapier Absensi",
-    desc: "IoT-based employee attendance and workforce management system featuring real-time RFID tap authentication, automated tracking, and administrative dashboards.",
-    tags: ["SvelteKit", "Express.js", "PostgreSQL", "IoT RFID", "Socket.IO", "TypeScript"],
-    image: "/rapier-absensi/rapier-login.webp",
-    images: [
-      "/rapier-absensi/rapier-login.webp",
-      "/rapier-absensi/iot-rapier.webp",
-      "/rapier-absensi/rapier-dashboard.webp",
-      "/rapier-absensi/rapier-dashboard-karyawan.webp",
-      "/rapier-absensi/rapier-rekap-harian.webp",
-      "/rapier-absensi/rapier-laporan-absensi.webp",
-      "/rapier-absensi/rapier-ringkasan-laporan.webp",
-      "/rapier-absensi/rapier-detail-keterlambatan.webp",
-      "/rapier-absensi/rapier-manajemen-tugas.webp",
-    ],
-    content:
-      "Rapier Absensi is an end-to-end IoT-powered employee attendance and workforce management platform. Integrated with physical RFID card hardware (ESP32 / RC522), it enables instant contactless check-ins and check-outs synchronized in real time via Socket.IO. The platform features role-based access for Admins, HR officers, and Employees, providing interactive dashboards, automated late-arrival calculations, shift and task management, daily recap logs, and downloadable periodic attendance reports in Excel and PDF formats.",
-    link: "#",
-    github: "#",
-  },
-  {
     slug: "ai-learning-insight",
     title: "AI Learning Insight",
     desc: "AI Learning Insight Dicoding is an IT learning platform with learning pattern prediction features to help improve users’ learning quality.",
@@ -89,22 +67,6 @@ export const projects: Project[] = [
     github: "#",
   },
   {
-    slug: "iot-forecasting-weather-with-flutter",
-    title: "IOT Forecasting Weather With Flutter",
-    desc: "IoT-based weather forecasting application built with Flutter, providing real-time weather data visualization and prediction.",
-    tags: ["Flutter", "IoT", "Firebase", "AI Prediction"],
-    image: "/iot-weather-prediction/iot-page.webp",
-    images: [
-      "/iot-weather-prediction/iot-page.webp",
-    ],
-    video: "EncEIESbwjg",
-    pdf: "/pdf/artikel-tubes-iot.pdf",
-    content:
-      "An IoT-powered weather forecasting app built with Flutter that integrates hardware sensors with machine learning algorithms. Features real-time sensor data collection, interactive charts, historical analysis, and accurate weather predictions through intelligent AI processing.",
-    link: "#",
-    github: "#",
-  },
-  {
     slug: "polivent",
     title: "POLIVENT",
     desc: "Event management platform for campus communities with registration, scheduling, and notification features.",
@@ -118,25 +80,6 @@ export const projects: Project[] = [
     content:
       "A campus event management platform enabling students and organizations to create, manage, and coordinate events seamlessly. Includes event registration, activity scheduling, participant notifications, and a dual-platform solution (Flutter mobile + Laravel backend) for accessibility.",
     link: "#",
-    github: "#",
-  },
-  {
-    slug: "delima-website",
-    title: "Delima Website",
-    desc: "Modern organizational website featuring scroll-driven animations, glassmorphism, and responsive design.",
-    tags: ["Next.js", "Tailwind CSS", "TypeScript", "ShadCN UI"],
-    image: "/delima/delima-umkm.webp",
-    images: [
-      "/delima/delima-umkm.webp",
-      "/delima/delima-02.webp",
-      "/delima/delima-04.webp",
-      "/delima/delima-05.webp",
-      "/delima/delima-06.webp",
-      "/delima/delima-07.webp",
-    ],
-    content:
-      "A modern organizational website featuring smooth scroll-driven animations, glassmorphism design patterns, and fully responsive layouts. Built with Next.js and Tailwind CSS, showcasing advanced CSS techniques and premium UX across all devices.",
-    link: "https://delimafnb.vercel.app/",
     github: "#",
   },
   {
@@ -160,23 +103,60 @@ export const projects: Project[] = [
     github: "#",
   },
   {
-    slug: "bensco",
-    title: "BENSCO",
-    desc: "Warehouse Management System (WMS) for PT. Bensco to efficiently manage spare parts inventory from receiving to dispatch.",
-    tags: ["WMS", "Inventory Management", "Dashboard", "Web Application"],
-    image: "/bensco/bensco-dashboard.webp",
+    slug: "rapier-absensi",
+    title: "Rapier Absensi",
+    desc: "IoT-based employee attendance and workforce management system with real-time RFID tracking.",
+    tags: ["SvelteKit", "Express.js", "PostgreSQL", "IoT RFID"],
+    image: "/rapier-absensi/rapier-login.webp",
     images: [
-      "/bensco/bensco-login.webp",
-      "/bensco/bensco-dashboard.webp",
-      "/bensco/bensco-tambahpo.webp",
-      "/bensco/bensco-listpo.webp",
-      "/bensco/bensco-orderproduk.webp",
-      "/bensco/bensco-akses.webp",
-      "/bensco/bensco-process.webp",
+      "/rapier-absensi/rapier-login.webp",
+      "/rapier-absensi/iot-rapier.webp",
+      "/rapier-absensi/rapier-dashboard.webp",
+      "/rapier-absensi/rapier-dashboard-karyawan.webp",
+      "/rapier-absensi/rapier-rekap-harian.webp",
+      "/rapier-absensi/rapier-laporan-absensi.webp",
+      "/rapier-absensi/rapier-ringkasan-laporan.webp",
+      "/rapier-absensi/rapier-detail-keterlambatan.webp",
+      "/rapier-absensi/rapier-manajemen-tugas.webp",
     ],
     content:
-      "The Warehouse Management System (WMS) at PT. Bensco is designed to efficiently manage spare parts inventory, covering the complete lifecycle from goods receiving and storage to picking and dispatch. The system enables spare parts categorization based on specific types or operational requirements, significantly accelerating item retrieval and streamlining material handling processes.",
+      "Rapier Absensi is an end-to-end IoT-powered employee attendance and workforce management platform. Integrated with physical RFID card hardware (ESP32 / RC522), it enables instant contactless check-ins and check-outs synchronized in real time via Socket.IO. The platform features role-based access for Admins, HR officers, and Employees, providing interactive dashboards, automated late-arrival calculations, shift and task management, daily recap logs, and downloadable periodic attendance reports in Excel and PDF formats.",
     link: "#",
+    github: "#",
+  },
+  {
+    slug: "iot-forecasting-weather-with-flutter",
+    title: "IOT Forecasting Weather With Flutter",
+    desc: "IoT-based weather forecasting application built with Flutter, providing real-time weather data visualization and prediction.",
+    tags: ["Flutter", "IoT", "Firebase", "AI Prediction"],
+    image: "/iot-weather-prediction/iot-page.webp",
+    images: [
+      "/iot-weather-prediction/iot-page.webp",
+    ],
+    video: "EncEIESbwjg",
+    pdf: "/pdf/artikel-tubes-iot.pdf",
+    content:
+      "An IoT-powered weather forecasting app built with Flutter that integrates hardware sensors with machine learning algorithms. Features real-time sensor data collection, interactive charts, historical analysis, and accurate weather predictions through intelligent AI processing.",
+    link: "#",
+    github: "#",
+  },
+  {
+    slug: "delima-website",
+    title: "Delima Website",
+    desc: "Modern organizational website featuring scroll-driven animations, glassmorphism, and responsive design.",
+    tags: ["Next.js", "Tailwind CSS", "TypeScript", "ShadCN UI"],
+    image: "/delima/delima-umkm.webp",
+    images: [
+      "/delima/delima-umkm.webp",
+      "/delima/delima-02.webp",
+      "/delima/delima-04.webp",
+      "/delima/delima-05.webp",
+      "/delima/delima-06.webp",
+      "/delima/delima-07.webp",
+    ],
+    content:
+      "A modern organizational website featuring smooth scroll-driven animations, glassmorphism design patterns, and fully responsive layouts. Built with Next.js and Tailwind CSS, showcasing advanced CSS techniques and premium UX across all devices.",
+    link: "https://delimafnb.vercel.app/",
     github: "#",
   },
   {
@@ -194,6 +174,26 @@ export const projects: Project[] = [
     content:
       "A minimalist note-taking app with local storage support. Create, archive, search, and delete notes seamlessly with a clean, intuitive interface and offline accessibility.",
     link: "https://personal-note-app-sepia.vercel.app/login",
+    github: "#",
+  },
+  {
+    slug: "bensco",
+    title: "BENSCO",
+    desc: "Warehouse Management System (WMS) for PT. Bensco to efficiently manage spare parts inventory from receiving to dispatch.",
+    tags: ["WMS", "Inventory Management", "Dashboard", "Web Application"],
+    image: "/bensco/bensco-dashboard.webp",
+    images: [
+      "/bensco/bensco-login.webp",
+      "/bensco/bensco-dashboard.webp",
+      "/bensco/bensco-tambahpo.webp",
+      "/bensco/bensco-listpo.webp",
+      "/bensco/bensco-orderproduk.webp",
+      "/bensco/bensco-akses.webp",
+      "/bensco/bensco-process.webp",
+    ],
+    content:
+      "The Warehouse Management System (WMS) at PT. Bensco is designed to efficiently manage spare parts inventory, covering the complete lifecycle from goods receiving and storage to picking and dispatch. The system enables spare parts categorization based on specific types or operational requirements, significantly accelerating item retrieval and streamlining material handling processes.",
+    link: "#",
     github: "#",
   },
 ]
