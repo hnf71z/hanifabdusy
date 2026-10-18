@@ -23,8 +23,8 @@ import {
   FaSun,
   FaMoon,
   FaEnvelope,
-  FaBars,
-  FaTimes,
+  FaHome,
+  FaFolder,
 } from "react-icons/fa"
 import { Highlighter } from "@/components/ui/highlighter"
 import CardSwap, { Card } from "@/components/CardSwap"
@@ -34,7 +34,6 @@ import "aos/dist/aos.css"
 import { SiNextdotjs, SiExpress } from "react-icons/si"
 import { projects, experiences, certificates, skills, type Skill } from "@/lib/data"
 
-// Map iconKey strings from data to actual React icon components
 const skillIconMap: Record<Skill["iconKey"], React.ReactNode> = {
   html5: <FaHtml5 />,
   css3: <FaCss3Alt />,
@@ -53,9 +52,6 @@ const experienceIconMap: Record<string, React.ReactNode> = {
 export default function Home() {
   const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [navVisible, setNavVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
   const [activeExp, setActiveExp] = useState<number | null>(null)
   const currentTheme = resolvedTheme === "light" ? "light" : "dark"
 
@@ -63,35 +59,9 @@ export default function Home() {
     setTheme(currentTheme === "dark" ? "light" : "dark")
   }
 
-  // Set mounted flag on client
   useEffect(() => {
     setMounted(true)
   }, [])
-
-  // Close mobile menu on resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 767) setMenuOpen(false)
-    }
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
-  // Navigation scroll hide/show
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setNavVisible(false)
-      } else {
-        setNavVisible(true)
-      }
-      setLastScrollY(currentScrollY)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [lastScrollY])
 
   useEffect(() => {
     // Mouse Blob Follower
@@ -105,7 +75,6 @@ export default function Home() {
     }
     document.addEventListener("mousemove", handleMouseMove)
 
-    // Parallax Effect
     const handleScroll = () => {
       const scroll = window.pageYOffset
 
@@ -136,7 +105,6 @@ export default function Home() {
       offset: 100,
     })
 
-    // Reveal on scroll
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -169,26 +137,33 @@ export default function Home() {
     <>
       <div className="blob" id="cursor-blob"></div>
 
-      <nav className={!navVisible ? "nav-hidden" : ""}>
-        <ul className={`nav-links${menuOpen ? " nav-open" : ""}`}>
-          <li><a href="#hero" onClick={() => setMenuOpen(false)}>Home</a></li>
-          <li><a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a></li>
-          <li><a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a></li>
-          <li><a href="#experience" onClick={() => setMenuOpen(false)}>Experience</a></li>
-          <li><a href="#contact" onClick={() => setMenuOpen(false)} className="contact-btn">Contact</a></li>
-        </ul>
-        <div className="nav-actions">
-          <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-            <span className="toggle-bg"></span>
-            <span className="toggle-knob">
-              {mounted ? (currentTheme === "dark" ? <FaSun /> : <FaMoon />) : <FaSun />}
-            </span>
-          </button>
-          <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </button>
-        </div>
-      </nav>
+      <div className="vertical-sidebar">
+        <nav className="sidebar-nav">
+          <a href="#hero" className="sidebar-item" data-tooltip="Home" aria-label="Home">
+            <FaHome />
+          </a>
+          <a href="#skills" className="sidebar-item" data-tooltip="Skills" aria-label="Skills">
+            <FaCode />
+          </a>
+          <a href="#projects" className="sidebar-item" data-tooltip="Projects" aria-label="Projects">
+            <FaFolder />
+          </a>
+          <a href="#experience" className="sidebar-item" data-tooltip="Experience" aria-label="Experience">
+            <FaGraduationCap />
+          </a>
+          <a href="#contact" className="sidebar-item" data-tooltip="Contact" aria-label="Contact">
+            <FaEnvelope />
+          </a>
+        </nav>
+        <button
+          className="sidebar-theme-toggle"
+          onClick={toggleTheme}
+          data-tooltip={currentTheme === "dark" ? "Light mode" : "Dark mode"}
+          aria-label="Toggle theme"
+        >
+          {mounted ? (currentTheme === "dark" ? <FaSun /> : <FaMoon />) : <FaSun />}
+        </button>
+      </div>
 
       <main>
         {/* HERO SECTION */}
@@ -208,7 +183,7 @@ export default function Home() {
                 FRONTEND DEVELOPER WHO CRAFTS DIGITAL EXPERIENCES.
               </h2>
               <div className="reveal-up" style={{ fontSize: "1.5rem", fontWeight: 300, color: "var(--fg)", opacity: 0.9, marginBottom: "40px", animationDelay: "0.2s", minHeight: "80px", lineHeight: "1.6" }}>
-                Passionate about building <Highlighter isView={true} color="rgba(37, 99, 235, 0.2)">modern, responsive</Highlighter>, and visually stunning web applications. 
+                Passionate about building <Highlighter isView={true} color="rgba(37, 99, 235, 0.2)">modern, responsive</Highlighter>, and visually stunning web applications.
                 Turning ideas into elegant digital solutions with <Highlighter isView={true} color="rgba(16, 185, 129, 0.2)">clean code</Highlighter> and <Highlighter isView={true} color="rgba(139, 92, 246, 0.2)">creative design</Highlighter>.
               </div>
               <div data-aos="fade-up" data-aos-delay="400">

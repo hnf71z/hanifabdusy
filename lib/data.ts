@@ -1,13 +1,3 @@
-
-// =============================================================================
-// Centralized data definitions for the portfolio.
-// Import from here instead of duplicating data across pages.
-// =============================================================================
-
-// -----------------------------------------------------------------------------
-// Types
-// -----------------------------------------------------------------------------
-
 export interface Project {
   slug: string
   title: string
@@ -15,9 +5,7 @@ export interface Project {
   tags: string[]
   image: string
   images: string[]
-  /** Optional YouTube video ID to embed (e.g. "dQw4w9WgXcQ") */
   video?: string
-  /** Optional PDF URL for project documentation (e.g. "/pdfs/my-project.pdf") */
   pdf?: string
   content: string
   link: string
@@ -39,22 +27,18 @@ export interface Certificate {
   link: string
 }
 
-// -----------------------------------------------------------------------------
-// Projects
-// -----------------------------------------------------------------------------
-
 export const projects: Project[] = [
   {
     slug: "ai-learning-insight",
     title: "AI Learning Insight",
     desc: "AI Learning Insight Dicoding is an IT learning platform with learning pattern prediction features to help improve users’ learning quality.",
     tags: ["React.js", "Express", "Supabase", "AI Prediction"],
-    image: "/ai-learning-insight-landingpage.webp",
+    image: "/ai-insight/ai-learning-insight-landingpage.webp",
     images: [
-      "/ai-learning-insight-landingpage.webp",
-      "/ai-insight-02.webp",
-      "/ai-insight-03.webp",
-      "/ai-insight-04.webp",
+      "/ai-insight/ai-learning-insight-landingpage.webp",
+      "/ai-insight/ai-insight-02.webp",
+      "/ai-insight/ai-insight-03.webp",
+      "/ai-insight/ai-insight-04.webp",
     ],
     video: "QR11StxPU4Q",
     pdf: "/pdf/ai-learning-insight-guide-book.pdf",
@@ -68,12 +52,12 @@ export const projects: Project[] = [
     title: "SI-AMI Polines",
     desc: "Collaborative task management tool with drag-and-drop boards and real-time updates.",
     tags: ["Laravel", "MySQL", "Flowbite", "Tailwind CSS"],
-    image: "/login-page-siami.webp",
+    image: "/siami/login-page-siami.webp",
     images: [
-      "/login-page-siami.webp",
-      "/dashboard-admin-01.webp",
-      "/periode-audit-02.webp",
-      "/daftar-tilik-03.webp",
+      "/siami/login-page-siami.webp",
+      "/siami/dashboard-admin-01.webp",
+      "/siami/periode-audit-02.webp",
+      "/siami/daftar-tilik-03.webp",
     ],
     video: "OVdSFwrzB8k",
     pdf: "/pdf/siami-guide-book.pdf",
@@ -87,9 +71,9 @@ export const projects: Project[] = [
     title: "IOT Forecasting Weather With Flutter",
     desc: "IoT-based weather forecasting application built with Flutter, providing real-time weather data visualization and prediction.",
     tags: ["Flutter", "IoT", "Firebase", "AI Prediction"],
-    image: "/iot-page.webp",
+    image: "/iot-weather-prediction/iot-page.webp",
     images: [
-      "/iot-page.webp",
+      "/iot-weather-prediction/iot-page.webp",
     ],
     video: "EncEIESbwjg",
     pdf: "/pdf/artikel-tubes-iot.pdf",
@@ -103,9 +87,9 @@ export const projects: Project[] = [
     title: "POLIVENT",
     desc: "Event management platform for campus communities with registration, scheduling, and notification features.",
     tags: ["Flutter", "Laravel", "MySQL"],
-    image: "/pbl-polivent-image.webp",
+    image: "/polivent/pbl-polivent-image.webp",
     images: [
-      "/pbl-polivent-image.webp",
+      "/polivent/pbl-polivent-image.webp",
     ],
     video: "W_PYCl4RyPk",
     pdf: "/pdf/polivent-guide-book.pdf",
@@ -119,14 +103,14 @@ export const projects: Project[] = [
     title: "Delima Website",
     desc: "Modern organizational website featuring scroll-driven animations, glassmorphism, and responsive design.",
     tags: ["Next.js", "Tailwind CSS", "TypeScript", "ShadCN UI"],
-    image: "/delima-umkm.webp",
+    image: "/delima/delima-umkm.webp",
     images: [
-      "/delima-umkm.webp",
-      "/delima-02.webp",
-      "/delima-04.webp",
-      "/delima-05.webp",
-      "/delima-06.webp",
-      "/delima-07.webp",
+      "/delima/delima-umkm.webp",
+      "/delima/delima-02.webp",
+      "/delima/delima-04.webp",
+      "/delima/delima-05.webp",
+      "/delima/delima-06.webp",
+      "/delima/delima-07.webp",
     ],
     content:
       "A modern organizational website featuring smooth scroll-driven animations, glassmorphism design patterns, and fully responsive layouts. Built with Next.js and Tailwind CSS, showcasing advanced CSS techniques and premium UX across all devices.",
@@ -138,15 +122,15 @@ export const projects: Project[] = [
     title: "Teman Coffe",
     desc: "TemanCoffee is a modern coffee shop website with an interactive interface, online ordering, and an admin dashboard.",
     tags: ["Next.js", "Tailwind CSS", "TypeScript", "Supabase"],
-    image: "/temancoffe-hero.png",
+    image: "/temancoffe/temancoffe-hero.webp",
     images: [
-      "/temancoffe-hero.png",
-      "/temancoffe-menu.png",
-      "/temancoffe-chat.png",
-      "/temancoffe-login.png",
-      "/temancoffe-dashboard.png",
-      "/temancoffe-manajemenproduk.png",
-      "/temancoffe-detailpesanan.png"
+      "/temancoffe/temancoffe-hero.webp",
+      "/temancoffe/temancoffe-menu.webp",
+      "/temancoffe/temancoffe-chat.webp",
+      "/temancoffe/temancoffe-login.webp",
+      "/temancoffe/temancoffe-dashboard.webp",
+      "/temancoffe/temancoffe-manajemenproduk.webp",
+      "/temancoffe/temancoffe-detailpesanan.webp"
     ],
     content:
       "TemanCoffee is a modern coffee shop website that integrates an interactive user interface, an online ordering system, and an admin dashboard. Customers can easily browse the menu and place orders, while administrators can manage products, monitor orders, and analyze sales data efficiently.",
@@ -154,16 +138,36 @@ export const projects: Project[] = [
     github: "#",
   },
   {
+    slug: "bensco",
+    title: "BENSCO",
+    desc: "Purchase order management system with product ordering, access management, and process tracking features.",
+    tags: ["Purchase Order", "Dashboard", "Web Application"],
+    image: "/bensco/bensco-dashboard.webp",
+    images: [
+      "/bensco/bensco-login.webp",
+      "/bensco/bensco-dashboard.webp",
+      "/bensco/bensco-tambahpo.webp",
+      "/bensco/bensco-listpo.webp",
+      "/bensco/bensco-orderproduk.webp",
+      "/bensco/bensco-akses.webp",
+      "/bensco/bensco-process.webp",
+    ],
+    content:
+      "BENSCO is a purchase order management system featuring order creation, product ordering, access management, and process tracking.",
+    link: "#",
+    github: "#",
+  },
+  {
     slug: "personal-notes",
     title: "Personal Notes",
     desc: "A clean and minimalist note-taking web application with archive, search, and theme support.",
     tags: ["React", "CSS3", "LocalStorage"],
-    image: "/personal-notes.webp",
+    image: "/personal-notes/personal-notes.webp",
     images: [
-      "/personal-notes.webp",
-      "/catatan-aktif.webp",
-      "/input-catatan.webp",
-      "/arsip-catatan.webp",
+      "/personal-notes/personal-notes.webp",
+      "/personal-notes/catatan-aktif.webp",
+      "/personal-notes/input-catatan.webp",
+      "/personal-notes/arsip-catatan.webp",
     ],
     content:
       "A minimalist note-taking app with local storage support. Create, archive, search, and delete notes seamlessly with a clean, intuitive interface and offline accessibility.",
@@ -172,17 +176,9 @@ export const projects: Project[] = [
   },
 ]
 
-// -----------------------------------------------------------------------------
-// Helper: find a project by its slug
-// -----------------------------------------------------------------------------
-
 export function getProjectBySlug(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug)
 }
-
-// -----------------------------------------------------------------------------
-// Experiences
-// -----------------------------------------------------------------------------
 
 export const experiences: Experience[] = [
   {
@@ -232,10 +228,6 @@ export const experiences: Experience[] = [
   },
 ]
 
-// -----------------------------------------------------------------------------
-// Certificates
-// -----------------------------------------------------------------------------
-
 export const certificates: Certificate[] = [
   {
     title: "Becoming a React Web Developer Expert",
@@ -268,10 +260,6 @@ export const certificates: Certificate[] = [
     link: "https://www.dicoding.com/certificates/MEPJ2J5OLP3V",
   },
 ]
-
-// -----------------------------------------------------------------------------
-// Skills (raw data only — icons are JSX and resolved in the component)
-// -----------------------------------------------------------------------------
 
 export interface Skill {
   name: string

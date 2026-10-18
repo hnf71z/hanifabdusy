@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${syne.variable} ${inter.variable}`}>
+      <body suppressHydrationWarning className={`${syne.variable} ${inter.variable}`}>
         <ClientThemeWrapper>
           {children}
           <Analytics />

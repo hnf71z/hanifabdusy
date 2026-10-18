@@ -106,9 +106,10 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
                         <Image
                           src={img}
                           alt={`${project.title} - Screenshot ${index + 1}`}
-                          width={1200}
-                          height={800}
-                          priority={index === 0 && !project.video}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 1200px"
+                          priority={index === 0}
+                          loading={index === 0 ? "eager" : "lazy"}
                           className="project-carousel-img"
                         />
                       </div>
@@ -197,4 +198,3 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
     </>
   )
 }
-
