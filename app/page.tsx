@@ -314,7 +314,7 @@ export default function Home() {
               height={380}
               cardDistance={15}
               verticalDistance={20}
-              delay={2000}
+              delay={3500}
               pauseOnHover={true}
               easing="elastic"
             >

@@ -115,29 +115,29 @@ const CardSwap: React.FC<CardSwapProps> = ({
         promoteOverlap: 0.55,
         returnDelay: 0.08,
         promoteStagger: 0.06,
-        dropDistance: 280
+        dropDistance: 260
       };
     }
     return easing === 'elastic'
       ? {
-          ease: 'elastic.out(0.6,0.9)',
-          durDrop: 2,
-          durMove: 2,
-          durReturn: 2,
-          promoteOverlap: 0.9,
-          returnDelay: 0.05,
-          promoteStagger: 0.15,
-          dropDistance: 450
+          ease: 'power2.out',
+          durDrop: 0.75,
+          durMove: 0.75,
+          durReturn: 0.75,
+          promoteOverlap: 0.65,
+          returnDelay: 0.08,
+          promoteStagger: 0.08,
+          dropDistance: 360
         }
       : {
           ease: 'power1.inOut',
-          durDrop: 0.8,
-          durMove: 0.8,
-          durReturn: 0.8,
+          durDrop: 0.7,
+          durMove: 0.7,
+          durReturn: 0.7,
           promoteOverlap: 0.45,
-          returnDelay: 0.2,
-          promoteStagger: 0.15,
-          dropDistance: 450
+          returnDelay: 0.15,
+          promoteStagger: 0.1,
+          dropDistance: 360
         };
   }, [easing, isMobile]);
 
@@ -162,27 +162,32 @@ const CardSwap: React.FC<CardSwapProps> = ({
     let lastStart = 0;
     let cancelled = false;
     let paused = false;
+    let isInView = true;
+    let isScrollingPage = false;
+    let scrollTimeout: ReturnType<typeof setTimeout> | null = null;
     const node = container.current;
     let pauseHandler: (() => void) | null = null;
     let resumeHandler: (() => void) | null = null;
 
-    // Mobile swaps less often to reduce animation load.
-    const effectiveDelay = isMobile ? delay * 1.5 : delay;
+    // Mobile swaps slightly less frequently to preserve battery and resources
+    const effectiveDelay = isMobile ? Math.max(delay, 3500) : delay;
 
     const scheduleNext = () => {
+      if (!isInView) return;
       const elapsed = performance.now() - lastStart;
       const wait = Math.max(0, effectiveDelay - elapsed);
       window.clearTimeout(timer);
       timer = window.setTimeout(() => {
-        if (!cancelled && !paused) swap();
+        if (!cancelled && !paused && isInView) swap();
       }, wait);
     };
 
     const swap = () => {
+      if (!isInView) return;
       lastStart = performance.now();
 
       const [front, ...rest] = order.current;
-      const elFront = refs[front].current;
+      const elFront = refs[front]?.current;
       if (!elFront) return;
 
       tlRef.current?.kill();
@@ -203,7 +208,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
 
       tl.addLabel('promote', `-=${config.durDrop * config.promoteOverlap}`);
       rest.forEach((idx, i) => {
-        const el = refs[idx].current;
+        const el = refs[idx]?.current;
         if (!el) return;
         const slot = makeSlot(i, activeCardDistance, activeVerticalDistance, total);
         tl.set(el, { zIndex: slot.zIndex }, 'promote');
@@ -236,10 +241,50 @@ const CardSwap: React.FC<CardSwapProps> = ({
       );
     };
 
-    timer = window.setTimeout(swap, 500);
+    // Pause animation when CardSwap is not in viewport to guarantee 60/120fps scrolling elsewhere
+    let observer: IntersectionObserver | null = null;
+    if (typeof window !== 'undefined' && 'IntersectionObserver' in window && node) {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          isInView = entry.isIntersecting;
+          if (!isInView) {
+            window.clearTimeout(timer);
+            tlRef.current?.pause();
+          } else {
+            if (!paused) {
+              if (tlRef.current && tlRef.current.progress() < 1) {
+                tlRef.current.play();
+              } else {
+                scheduleNext();
+              }
+            }
+          }
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(node);
+    }
+
+    timer = window.setTimeout(swap, 800);
+
+    // Track active page scrolling to prevent hover-jitter while scrolling past CardSwap
+    const handleWindowScroll = () => {
+      isScrollingPage = true;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        isScrollingPage = false;
+        if (node && node.matches(':hover') && pauseOnHover && !paused) {
+          paused = true;
+          tlRef.current?.pause();
+          window.clearTimeout(timer);
+        }
+      }, 150);
+    };
+    window.addEventListener('scroll', handleWindowScroll, { passive: true });
 
     if (pauseOnHover && node) {
       pauseHandler = () => {
+        if (isScrollingPage) return; // Do not pause if cursor simply intersects while scrolling
         paused = true;
         tlRef.current?.pause();
         window.clearTimeout(timer);
@@ -260,6 +305,9 @@ const CardSwap: React.FC<CardSwapProps> = ({
     return () => {
       cancelled = true;
       window.clearTimeout(timer);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+      window.removeEventListener('scroll', handleWindowScroll);
+      observer?.disconnect();
       tlRef.current?.kill();
       if (node && pauseHandler) node.removeEventListener('mouseenter', pauseHandler);
       if (node && resumeHandler) node.removeEventListener('mouseleave', resumeHandler);
